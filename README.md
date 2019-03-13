@@ -1,2 +1,10 @@
 # v8-geckos-team-11
-Add-project-description-here | Voyage-8 | https://chingu.io/
+
+## Team Members
+Elizabeth
+Chris
+Simon
+Alvaro
+
+
+TBD | Voyage-8 | https://chingu.io/
