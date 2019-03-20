@@ -91,6 +91,27 @@ git merge origin/dev
 4. Make changes and repeat **step 4** to **step 9** from above  
 
 
+## Project setup
+```
+npm install
+```
 
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
+### Compiles and minifies for production
+```
+npm run build
+```
 
+### Run your tests
+```
+npm run test
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
