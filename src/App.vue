@@ -2,37 +2,24 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
+        <span><sub>In</sub><sup>The</sup></span>
+        <span class="font-weight-heavy">PAN</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
+      <v-btn flat href="#FAQ">
+        <span class="mr-2">FAQ</span>
       </v-btn>
     </v-toolbar>
-
+<!-- Chris has added the two components for the main landing page -->
+<!-- Searchbar -->
     <v-content>
-      <HelloWorld/>
+      <h1 class="text-xs-center">SearchBar goes here</h1>
+      <SearchBar/>
+    </v-content>
+<!-- Search Results -->
+    <v-content>
+      <h1 class="text-xs-center">Results grid goes here</h1>
+      <SearchResults/>
     </v-content>
   </v-app>
 </template>
-
-<script>
-import HelloWorld from './components/HelloWorld'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  },
-  data () {
-    return {
-      //
-    }
-  }
-}
-</script>
