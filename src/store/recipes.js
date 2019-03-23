@@ -15,6 +15,7 @@ const mutations = {
 const actions = {
   callApi ({ commit }, payload) {
     let url = 'https://api.edamam.com/search?q=' + payload + '&app_id=' + APIID + '&app_key=' + APIKEY
+    commit('resetState')
     axios.get(url)
       .then(response => {
         console.log(response.data)
