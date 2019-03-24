@@ -1,31 +1,31 @@
 <template>
-  <v-container grid-list-x1>
+  <v-container grid-list-md>
     <v-layout fluid row wrap>
-      <v-flex lg6 sm12>
+      <v-flex v-for="(item, index) in test" :key="index" xl6 lg12>
         <div class="card-container">
           <v-card class="u-clearfix">
             <div class="card-body">
               <v-card-title>
-                <div class="headline">New Brunch Recipe</div>
-                <span class="card-author subtle">John Smith</span>
+                <div class="headline">{{ item.recipe.label }}</div>
+                <span class="card-author subtle">{{ item.recipe.source }}</span>
               </v-card-title>
               <v-card-text class="card-description subtle">
-                <ul>
-                  <li><v-icon >person</v-icon><span>1</span></li>
-                  <li><v-icon>timer</v-icon><span>15 min</span></li>
+                <ul class="icon">
+                  <li><v-icon >person</v-icon><span>{{ item.recipe.yield }}</span></li>
+                  <li><v-icon>timer</v-icon><span>{{ getTime(item.recipe.totalTime) }}</span></li>
                 </ul>
-                Eiusmod enim consequat laborum voluptate
-                quis ad. Ex dolor consequat do voluptate pariatur
-                aute. Minim fugiat dolor sit non officia tempor
-                tempor quis amet culpa fugiat excepteur magna.
-                Laboris laborum culpa enim officia pariatur labore
-                nisi proident do culpa adipisicing anim occaecat.
+                <ul v-for="(health, index) in item.recipe.healthLabels" :key="index">
+                  <li>{{ health }}</li>
+                </ul>
+                <ul v-for="(diet) in item.recipe.dietLabels" :key="diet">
+                  <li>{{ diet }}</li>
+                </ul>
               </v-card-text>
               <v-card-actions>
-                <v-btn flat color="orange">Read More</v-btn>
+                <v-btn flat color="orange" :href="item.recipe.url">Read More</v-btn>
               </v-card-actions>
             </div>
-            <v-img height="380px" src="https://i.pinimg.com/originals/52/75/cc/5275ccbd916d70596808c04a600679d8.jpg"></v-img>
+            <v-img :src="item.recipe.image" height="380px"></v-img>
           </v-card>
         </div>
       </v-flex>
@@ -35,19 +35,54 @@
 <script>
 export default {
   props: {
-    result: Object,
+    result: Array,
     error: String,
     showError: Boolean,
     icon: String
   },
   data () {
     return {
-      data: ''
+      test: this.$store.getters.getRecipes
+    }
+  },
+  methods: {
+    getTime (totalMinutes) {
+      var minutes = totalMinutes % 60
+      var hours = (totalMinutes - minutes) / 60
+      var time = hours + ' hr ' + minutes + ' min'
+      return time
     }
   }
 }
 </script>
 <style scoped>
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.card-container {
+  margin: 25px auto 0;
+  position: relative;
+  width: 692px;
+}
+
+.card-body {
+  display: inline-block;
+  float: left;
+  padding-right: 20px;
+  width: 310px;
+}
+
+.card-author {
+  font-size: 12px;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+
+.headline {
+  width: 100%;
+}
+
 html {
   background: #FAF7F2;
   box-sizing: border-box;
@@ -56,8 +91,22 @@ html {
   font-weight: 400;
 }
 
-*, *:before, *:after {
-  box-sizing: inherit;
+.icon li {
+  display: inline-block;
+  margin-left: 1em;
+  line-height: 1em;
+}
+
+.icon li:first-child {
+  margin-left: 0;
+}
+
+.icon li span {
+  margin-left: 7px;
+}
+
+.subtle {
+  color: #aaa;
 }
 
 .u-clearfix:before,
@@ -74,14 +123,9 @@ html {
   *zoom: 1;
 }
 
-.subtle {
-  color: #aaa;
-}
-
-.card-container {
-  margin: 25px auto 0;
-  position: relative;
-  width: 692px;
+ul {
+  list-style: none;
+  padding: 0;
 }
 
 .v-card {
@@ -89,39 +133,6 @@ html {
   padding: 30px;
   position: relative;
   max-height: 440px;
-}
-
-.card-body {
-  display: inline-block;
-  float: left;
-  padding-right: 20px;
-  width: 310px;
-}
-
-.card-author {
-  display: block;
-  font-size: 12px;
-  letter-spacing: .5px;
-  text-transform: uppercase;
-}
-
-li {
-  display: inline-block;
-  margin-left: 1em;
-  line-height: 1em;
-}
-
-li:first-child {
-  margin-left: 0;
-}
-
-li span {
-  margin-left: 7px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
 }
 
 .v-card-title {
