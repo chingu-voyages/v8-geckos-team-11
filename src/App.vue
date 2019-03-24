@@ -13,7 +13,6 @@
 <!-- Chris has added the two components for the main landing page -->
 <!-- Searchbar -->
     <v-content>
-      <h1 class="text-xs-center">SearchBar goes here</h1>
       <SearchBar/>
     </v-content>
 <!-- Search Results -->
@@ -23,5 +22,17 @@
     </v-content>
   </v-app>
 </template>
+<<<<<<< HEAD
 <script>
+=======
+
+<script>
+import SearchBar from './components/SearchBar.vue'
+
+export default {
+  components: {
+    SearchBar
+  }
+}
+>>>>>>> dev
 </script>
