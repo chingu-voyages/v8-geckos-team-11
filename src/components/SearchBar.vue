@@ -22,9 +22,11 @@ export default {
 
   methods: {
     search () {
-      if (this.$refs.form.validate()) {
-        this.snackbar = true
-      }
+      // we can add validation later
+      // if (this.$refs.form.validate()) {
+      //   this.snackbar = true
+      // }
+      this.$store.dispatch('callApi', this.query) // this will call the action to get data from api
     }
   }
 }
