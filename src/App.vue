@@ -18,7 +18,7 @@
 <!-- Search Results -->
     <v-content>
       <h1 class="text-xs-center">Results grid goes here</h1>
-      <SearchResults/>
+      <!-- <SearchResults/>  Bel will add this later-->
     </v-content>
   </v-app>
 </template>
