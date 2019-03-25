@@ -19,7 +19,7 @@ const actions = {
     axios.get(url)
       .then(response => {
         console.log(response.data)
-        commit('setRecipe', response.data)
+        commit('setRecipe', response.data.hits)
       })
   }
 }
