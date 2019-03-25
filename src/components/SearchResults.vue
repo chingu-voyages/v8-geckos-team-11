@@ -34,15 +34,9 @@
 </template>
 <script>
 export default {
-  props: {
-    result: Array,
-    error: String,
-    showError: Boolean,
-    icon: String
-  },
-  data () {
-    return {
-      test: this.$store.getters.getRecipes
+  computed: {
+    test: function () {
+      return this.$store.getters.getRecipes
     }
   },
   methods: {
