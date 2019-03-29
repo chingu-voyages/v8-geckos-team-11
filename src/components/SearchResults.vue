@@ -37,11 +37,6 @@
 import NutritionFacts from './NutritionFacts'
 
 export default {
-  data () {
-    return {
-      showNutrition: false
-    }
-  },
   components: {
     NutritionFacts
   },
