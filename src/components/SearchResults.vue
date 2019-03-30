@@ -22,7 +22,8 @@
                 </ul>
               </v-card-text>
               <v-card-actions>
-                <v-btn flat color="orange" :href="item.recipe.url">Read More</v-btn>
+                <v-btn flat color="orange" :href="item.recipe.url" target="_blank">Read More</v-btn>
+                <NutritionFacts v-bind:facts="item.recipe.totalNutrients" />
               </v-card-actions>
             </div>
             <v-img :src="item.recipe.image" height="380px"></v-img>
@@ -42,7 +43,12 @@
   </v-container>
 </template>
 <script>
+import NutritionFacts from './NutritionFacts'
+
 export default {
+  components: {
+    NutritionFacts
+  },
   computed: {
     recipeList () {
       return this.$store.getters.getRecipes
