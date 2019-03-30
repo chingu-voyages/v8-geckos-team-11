@@ -8,6 +8,7 @@
               class='form__input'
               v-model.trim='$v.query.$model'
               placeholder='start by typing in your favorite food item'
+              clearable
             ></v-text-field>
           </div>
           <p v-if="submitStatus === 'ERROR'">Please type in a food item</p>
