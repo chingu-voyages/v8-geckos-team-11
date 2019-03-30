@@ -5748,7 +5748,7 @@ const mutations = {
 }
 const actions = {
   callApi ({ commit }, payload) {
-    // let url = 'https://api.edamam.com/search?q=' + payload + '&app_id=' + APIID + '&app_key=' + APIKEY
+    // let url = 'https://api.edamam.com/search?q=' + payload + '&app_id=' + APIID + '&app_key=' + APIKEY + '&from=0&to=50'
     // commit('resetState')
     // axios.get(url)
     //   .then(response => {
