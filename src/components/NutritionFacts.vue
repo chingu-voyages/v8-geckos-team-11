@@ -24,7 +24,7 @@
 
         <v-card-text>
           <ul v-for="(item) in facts" :key="item.index">
-            <li>{{ item.label }} : {{ item.quantity }} {{ item.unit }}</li>
+            <li>{{ item.label }} : {{ Math.ceil(item.quantity) }} {{ item.unit }}</li>
           </ul>
         </v-card-text>
 
