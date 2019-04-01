@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-md>
     <v-layout fluid row wrap>
-      <v-flex v-for="(item, index) in test" :key="index" xl6 lg12>
+      <v-flex v-for="(item, i) in updateList" :key="i" xl6 lg12>
         <div class="card-container">
           <v-card class="u-clearfix">
             <div class="card-body">
@@ -22,7 +22,8 @@
                 </ul>
               </v-card-text>
               <v-card-actions>
-                <v-btn flat color="orange" :href="item.recipe.url">Read More</v-btn>
+                <v-btn flat color="orange" :href="item.recipe.url" target="_blank">Read More</v-btn>
+                <NutritionFacts v-bind:facts="item.recipe.totalNutrients" />
               </v-card-actions>
             </div>
             <v-img :src="item.recipe.image" height="380px"></v-img>
@@ -30,13 +31,48 @@
         </div>
       </v-flex>
     </v-layout>
+    <v-layout justify-center class="mt-3">
+      <v-pagination
+      v-if="updateList.length !== 0"
+       v-model="page"
+       :length="maxPaginationVisible"
+       :total-visible="maxPaginationVisible"
+      >
+      </v-pagination>
+    </v-layout>
   </v-container>
 </template>
 <script>
+import NutritionFacts from './NutritionFacts'
+
 export default {
+  components: {
+    NutritionFacts
+  },
   computed: {
-    test: function () {
+    recipeList () {
       return this.$store.getters.getRecipes
+    },
+    maxPaginationVisible () {
+      if (this.recipeList !== null) {
+        return Math.ceil(this.recipeList.length / this.numItemPerPage)
+      }
+      return 0
+    },
+    updateList () {
+      if (this.recipeList !== null) {
+        let listItems = this.recipeList
+        let begin = (this.page - 1) * this.numItemPerPage
+        let end = begin + this.numItemPerPage
+        return listItems.slice(begin, end)
+      }
+      return []
+    }
+  },
+  data () {
+    return {
+      page: 1,
+      numItemPerPage: 10
     }
   },
   methods: {

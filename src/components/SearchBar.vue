@@ -1,5 +1,5 @@
 <template>
-  <v-form @submit.prevent='submit'>
+  <v-form @submit.prevent='search'>
     <v-container>
       <v-layout row wrap>
         <v-flex xs12 sm6 md6>
@@ -19,7 +19,7 @@
           type='submit'
           :disabled="submitStatus === 'PENDING'"
           color="success"
-        >Submit</v-btn>
+        >Search</v-btn>
       </v-layout>
     </v-container>
   </v-form>
@@ -44,7 +44,7 @@ export default {
   },
 
   methods: {
-    submit () {
+    search () {
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
