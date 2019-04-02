@@ -1,13 +1,17 @@
 <template>
-    <div class="filter">
-        <label for="filtering">Filter: </label>
-        <section>
-        	<input type="checkbox" 
-        		@click="getFilteredResults"
-        		v-for="(filterOption, index) in filterOptions"
-        		:key="index">
-        </section>
-    </div>
+    <v-container fluid grid-list-md>
+    <v-layout row wrap>
+      <v-flex d-flex xs12 sm6 md4>
+        <v-card color="purple" dark>
+          <v-card-title primary class="title">Filter</v-card-title>
+            <input type="checkbox" 
+                @click="getFilteredResults"
+                v-for="(filterOption, index) in filterOptions"
+                :key="index">
+          <v-card-text></v-card-text>
+        </v-card>
+      </v-flex>
+
 </template>
 
 <script>
