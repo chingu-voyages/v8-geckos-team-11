@@ -44,12 +44,10 @@
 </template>
 <script>
 import NutritionFacts from './NutritionFacts'
-import Filter from './Filter'
 
 export default {
   components: {
     NutritionFacts
-    Filter
   },
   computed: {
     recipeList () {
