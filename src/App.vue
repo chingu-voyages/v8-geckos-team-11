@@ -14,6 +14,10 @@
 <!-- Searchbar -->
     <v-content>
       <SearchBar/>
+<!-- Filter -->
+    <template v-if="renderedComponent">
+      <FilterResults/>
+    </template>
 <!-- Search Results -->
       <SearchResults/>
     </v-content>
@@ -22,12 +26,19 @@
 
 <script>
 import SearchResults from './components/SearchResults'
-import SearchBar from './components/SearchBar.vue'
+import SearchBar from './components/SearchBar'
+import FilterResults from './components/FilterResults'
 
 export default {
   components: {
     SearchBar,
-    SearchResults
+    SearchResults,
+    FilterResults
+  },
+  computed: {
+    renderedComponent () {
+      return this.$store.getters.getRecipes != null
+    }
   }
 }
 </script>
