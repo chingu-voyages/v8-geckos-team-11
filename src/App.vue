@@ -14,6 +14,8 @@
 <!-- Searchbar -->
     <v-content>
       <SearchBar/>
+<!-- Filter -->
+      <Filter/>
 <!-- Search Results -->
       <SearchResults/>
     </v-content>
@@ -22,12 +24,14 @@
 
 <script>
 import SearchResults from './components/SearchResults'
-import SearchBar from './components/SearchBar.vue'
+import SearchBar from './components/SearchBar'
+import Filter from './components/Filter'
 
 export default {
   components: {
     SearchBar,
-    SearchResults
+    SearchResults,
+    Filter
   }
 }
 </script>
