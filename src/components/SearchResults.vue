@@ -1,7 +1,29 @@
 <template>
-  <v-container grid-list-md>
-    <v-layout fluid row wrap>
-      <v-flex v-for="(item, i) in updateList" :key="i" xl6 lg12>
+  <v-container v-if="renderedComponent">
+    <v-layout row wrap>
+<!-- inserting filter here -->
+    <v-container id="filterBoxOptions" lg3>
+          <v-flex>
+            <v-card color="gray" light>
+              <v-card-title primary class="title">Diet Filters: </v-card-title>
+              <div>
+                <v-divider></v-divider>
+                <v-layout row wrap>
+                    <v-flex v-for="item in filterOptions" :key="item.id" wrap lg3>
+                        <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
+                        </v-checkbox>
+                    </v-flex>
+                </v-layout>
+                <button v-if="tagged.length > 0" v-on:click="getFilteredResults()">
+                    Apply Filters
+                </button>
+              </div>
+            </v-card>
+          </v-flex>
+    </v-container>
+<!--end of filter-->
+
+      <v-flex v-for="(item, i) in updateList" :key="i" xl6 lg8>
         <div class="card-container">
           <v-card class="u-clearfix">
             <div class="card-body">
@@ -67,12 +89,33 @@ export default {
         return listItems.slice(begin, end)
       }
       return []
+    },
+    renderedComponent () {
+      return this.$store.getters.getRecipes != null
     }
   },
   data () {
     return {
       page: 1,
-      numItemPerPage: 10
+      numItemPerPage: 10,
+      filterOptions: [
+        { id: '1', tag: 'balanced', checked: false },
+        { id: '2', tag: 'high-protein' },
+        { id: '3', tag: 'high-fiber' },
+        { id: '4', tag: 'low-fat' },
+        { id: '5', tag: 'low-carb' },
+        { id: '6', tag: 'low-sodium' },
+        { id: '7', tag: 'vegan' },
+        { id: '8', tag: 'vegetarian' },
+        { id: '9', tag: 'dairy-free' },
+        { id: '10', tag: 'low-sugar' },
+        { id: '11', tag: 'low-fat-abs' },
+        { id: '12', tag: 'sugar-conscious' },
+        { id: '13', tag: 'fat free' },
+        { id: '14', tag: 'gluten free' },
+        { id: '15', tag: 'wheat free' }
+      ],
+      tagged: []
     }
   },
   methods: {
@@ -81,6 +124,11 @@ export default {
       var hours = (totalMinutes - minutes) / 60
       var time = hours + ' hr ' + minutes + ' min'
       return time
+    },
+    getFilteredResults () {
+      let filterRecipeList = this.recipeList.filter(recipe=>{
+        return (this.tagged.includes(recipe.dietLabels) || this.tagged.includes(recipe.healthLabels))
+      })
     }
   }
 }
@@ -88,6 +136,14 @@ export default {
 <style scoped>
 *, *:before, *:after {
   box-sizing: inherit;
+}
+
+#filterBoxOptions {
+  position: fixed;
+}
+
+.container {
+  min-width: 1000px;
 }
 
 .card-container {
