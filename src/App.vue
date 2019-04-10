@@ -15,23 +15,18 @@
     <v-content>
       <SearchBar/>
 <!-- Filter -->
-      <Filter/>
 <!-- Search Results -->
       <SearchResults/>
     </v-content>
   </v-app>
 </template>
-
 <script>
 import SearchResults from './components/SearchResults'
 import SearchBar from './components/SearchBar'
-import Filter from './components/Filter'
-
 export default {
   components: {
     SearchBar,
-    SearchResults,
-    Filter
+    SearchResults
   }
 }
 </script>
