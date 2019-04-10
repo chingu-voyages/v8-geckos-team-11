@@ -67,6 +67,7 @@ export default {
   },
   methods: {
     download () {
+      // eslint-disable-next-line
       const doc = new jsPDF('p', 'pt', 'a4')
       const contentHTML = this.$refs.content.innerHTML
       doc.text('Nutrition Facts', 20, 50)
