@@ -21,9 +21,10 @@
                   <li>{{ diet }}</li>
                 </ul>
               </v-card-text>
-              <v-card-actions>
+              <v-card-actions row>
                 <v-btn flat color="orange" :href="item.recipe.url" target="_blank">Read More</v-btn>
                 <NutritionFacts v-bind:facts="item.recipe.totalNutrients" />
+                <v-btn flat color="orange" @click="addToList(item)">Add to Shopping List</v-btn>
               </v-card-actions>
             </div>
             <v-img :src="item.recipe.image" height="380px"></v-img>
@@ -44,7 +45,6 @@
 </template>
 <script>
 import NutritionFacts from './NutritionFacts'
-
 export default {
   components: {
     NutritionFacts
@@ -81,6 +81,9 @@ export default {
       var hours = (totalMinutes - minutes) / 60
       var time = hours + ' hr ' + minutes + ' min'
       return time
+    },
+    addToList (item) {
+      console.log(item)
     }
   }
 }
