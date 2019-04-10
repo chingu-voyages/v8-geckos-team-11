@@ -15,12 +15,12 @@
 <!-- Searchbar -->
     <v-content>
       <SearchBar/>
+<!-- Filter -->
 <!-- Search Results -->
       <SearchResults/>
     </v-content>
   </v-app>
 </template>
-
 <script>
 import SearchResults from './components/SearchResults'
 import SearchBar from './components/SearchBar'

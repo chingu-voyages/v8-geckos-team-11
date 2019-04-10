@@ -22,7 +22,7 @@
           Nutrition Facts
         </v-card-title>
 
-        <v-card-text>
+        <v-card-text ref='content'>
           <ul v-for="(item) in facts" :key="item.index">
             <li>{{ item.label }} : {{ Math.ceil(item.quantity) }} {{ item.unit }}</li>
           </ul>
@@ -39,20 +39,43 @@
           >
             Close
           </v-btn>
+          <v-btn
+            color="primary"
+            flat
+            @click="download"
+          >
+            Export to PDF
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
 </template>
+
 <script>
+import jsPDF from 'jspdf'
+
 export default {
   data () {
     return {
       dialog: false
     }
   },
+
   props: {
     facts: Object
+  },
+  methods: {
+    download () {
+      // eslint-disable-next-line
+      const doc = new jsPDF('p', 'pt', 'a4')
+      const contentHTML = this.$refs.content.innerHTML
+      doc.text('Nutrition Facts', 20, 50)
+      doc.fromHTML(contentHTML, 20, 70, {
+        width: 170
+      })
+      doc.save('Nutrition Facts.pdf')
+    }
   }
 }
 </script>
@@ -60,4 +83,5 @@ export default {
 ul {
   list-style: none;
 }
+
 </style>
