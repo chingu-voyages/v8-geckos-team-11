@@ -14,7 +14,7 @@
                         </v-checkbox>
                     </v-flex>
                 </v-layout>
-                <button v-if="tagged.length > 0" v-on:click="getFilteredResults()">
+                <button v-if="tagged.length > 0" v-on:click="getFilteredResults">
                     Apply Filters
                 </button>
               </div>
@@ -76,19 +76,24 @@ export default {
       return this.$store.getters.getRecipes
     },
     maxPaginationVisible () {
-      if (this.recipeList !== null) {
-        return Math.ceil(this.recipeList.length / this.numItemPerPage)
+      if (this.filteredList !== null) {
+        return Math.ceil(this.filteredList.length / this.numItemPerPage)
       }
       return 0
     },
     updateList () {
-      if (this.recipeList !== null) {
+      if (this.filterApplied){
+        let listItems = this.filteredList
+        let begin = (this.page -1) * this.numItemPerPage
+        let end = begin + this.numItemPerPage
+        return listItems.slice(begin, end)
+      } else if (this.recipeList !== null) {
         let listItems = this.recipeList
         let begin = (this.page - 1) * this.numItemPerPage
         let end = begin + this.numItemPerPage
         return listItems.slice(begin, end)
       }
-      return []
+      return this.recipeList
     },
     renderedComponent () {
       return this.$store.getters.getRecipes != null
@@ -98,22 +103,24 @@ export default {
     return {
       page: 1,
       numItemPerPage: 10,
+      filterApplied: false,
+      filteredList: null,
       filterOptions: [
-        { id: '1', tag: 'balanced' },
-        { id: '2', tag: 'high-protein' },
-        { id: '3', tag: 'high-fiber' },
-        { id: '4', tag: 'low-fat' },
-        { id: '5', tag: 'low-carb' },
-        { id: '6', tag: 'low-sodium' }
-        // { id: '7', tag: 'vegan' },
-        // { id: '8', tag: 'vegetarian' },
-        // { id: '9', tag: 'dairy-free' },
-        // { id: '10', tag: 'low-sugar' },
-        // { id: '11', tag: 'low-fat-abs' },
-        // { id: '12', tag: 'sugar-conscious' },
-        // { id: '13', tag: 'fat free' },
-        // { id: '14', tag: 'gluten free' },
-        // { id: '15', tag: 'wheat free' }
+        { tag: 'balanced' },
+        { tag: 'high-protein' },
+        { tag: 'high-fiber' },
+        { tag: 'low-fat' },
+        { tag: 'low-carb' },
+        { tag: 'low-sodium' }
+        // { tag: 'vegan' },
+        // { tag: 'vegetarian' },
+        // { tag: 'dairy-free' },
+        // { tag: 'low-sugar' },
+        // { tag: 'low-fat-abs' },
+        // { tag: 'sugar-conscious' },
+        // { tag: 'fat free' },
+        // { tag: 'gluten free' },
+        // { tag: 'wheat free' }
       ],
       tagged: []
     }
@@ -126,11 +133,12 @@ export default {
       return time
     },
     getFilteredResults () {
-      let filterRecipeList = this.recipeList.filter(recipe=>{
-        return (this.tagged.includes(recipe.dietLabels) || this.tagged.includes(recipe.healthLabels))
-      })
+      this.filterApplied = true;
+      this.filteredList = this.recipeList.filter( recipe => {
+          this.tagged.includes(...[recipe.dietLabels])
+        })
+      }
     }
-  }
 }
 </script>
 <style scoped>
