@@ -3,8 +3,7 @@
 // const APIID = '44f1859e'
 import APIDATA from './api.js'
 const state = {
-  recipe: null,
-  shopping: []
+  recipe: null
 }
 const mutations = {
   setRecipe (state, payload) {
@@ -12,9 +11,6 @@ const mutations = {
   },
   resetState (state) {
     state.recipe = null
-  },
-  setShoppingItem (state, payload) {
-    state.shopping.push(payload)
   }
 }
 const actions = {
@@ -30,17 +26,11 @@ const actions = {
       commit('resetState')
       commit('setRecipe', APIDATA.hits)
     }
-  },
-  addItemToShoppingList ({ commit }, payload) { // adds items to the shopping list
-    commit('setShoppingItem', payload)
   }
 }
 const getters = {
   getRecipes (state) {
     return state.recipe
-  },
-  getShoppingList (state) { // return shopping list
-    return state.shopping
   }
 }
 
