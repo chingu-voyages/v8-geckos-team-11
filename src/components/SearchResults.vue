@@ -41,11 +41,36 @@
       >
       </v-pagination>
     </v-layout>
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <v-card>
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          {{dialogTitle}}
+        </v-card-title>
+        <v-card-text>
+          {{dialogMsg}}
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            flat
+            @click="dialog = false"
+          >
+            OK
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 <script>
 import NutritionFacts from './NutritionFacts'
-
 export default {
   components: {
     NutritionFacts
@@ -53,6 +78,9 @@ export default {
   computed: {
     recipeList () {
       return this.$store.getters.getRecipes
+    },
+    cartList () {
+      return this.$store.getters.CART
     },
     maxPaginationVisible () {
       if (this.recipeList !== null) {
@@ -73,7 +101,10 @@ export default {
   data () {
     return {
       page: 1,
-      numItemPerPage: 10
+      numItemPerPage: 10,
+      dialogTitle: '',
+      dialogMsg: '',
+      dialog: false
     }
   },
   methods: {
@@ -84,8 +115,32 @@ export default {
       return time
     },
     addCart (payload) {
-      this.$store.dispatch('addCart', payload)
-      console.log(payload)
+      if (!this.isInCart(payload)) {
+        this.$store.dispatch('addCart', payload)
+        this.dialog = true
+        this.dialogTitle = 'Success'
+        this.dialogMsg = 'Recipe Added to Shopping List'
+      } else {
+        this.dialog = true
+        this.dialogTitle = 'Sorry'
+        this.dialogMsg = 'Recipe is already Added :('
+      }
+    },
+    isInCart (payload) {
+      let vm = this
+      if (this.cartList.length !== 0) {
+        let result = this.cartList.find(elem => {
+          return elem.id === vm.extractId(payload.uri)
+        })
+        if (result === undefined) {
+          return false
+        }
+        return true
+      }
+      return false
+    },
+    extractId (uri) {
+      return uri.substr(uri.indexOf('_') + 1, uri.length)
     }
   }
 }

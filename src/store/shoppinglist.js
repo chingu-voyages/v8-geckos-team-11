@@ -5,14 +5,16 @@ export default {
   getters: {
     CART: state => {
       return state.cart
+    },
+    CART_SIZE: state => {
+      return state.cart.length
     }
   },
   mutations: {
-    GET_CART (state, recipe) {
-      state.newRecipe = recipe
-    },
     ADD_CART (state, newRecipe) {
+      let newId = newRecipe.uri
       state.cart.push({
+        id: newId.substr(newId.indexOf('_') + 1, newId.length),
         name: newRecipe.label,
         ingredients: newRecipe.ingredientLines
       })

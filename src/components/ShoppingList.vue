@@ -9,7 +9,7 @@
           flat
           v-on="on"
         >
-          Shopping Cart
+          Shopping Cart ({{cartSize}})
         </v-btn>
       </template>
 
@@ -60,6 +60,9 @@ export default {
   computed: {
     cartList () {
       return this.$store.getters.CART
+    },
+    cartSize () {
+      return this.$store.getters.CART_SIZE
     }
   },
   methods: {
