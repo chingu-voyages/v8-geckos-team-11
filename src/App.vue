@@ -15,20 +15,25 @@
     <v-content>
       <SearchBar/>
 <!-- Filter -->
+<<<<<<< HEAD
 <!--     <template v-if="renderedComponent">
       <FilterResults/>
     </template> -->
+=======
+>>>>>>> dev
 <!-- Search Results -->
       <SearchResults/>
     </v-content>
   </v-app>
 </template>
-
 <script>
 import SearchResults from './components/SearchResults'
 import SearchBar from './components/SearchBar'
+<<<<<<< HEAD
 // import FilterResults from './components/FilterResults'
 
+=======
+>>>>>>> dev
 export default {
   components: {
     SearchBar,
