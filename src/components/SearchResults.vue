@@ -135,11 +135,14 @@ export default {
     getFilteredResults () {
       this.filterApplied = true;
       this.filteredList = this.recipeList.filter( recipe => {
-          this.tagged.includes(...[recipe.dietLabels])
+        this.tagged.forEach(element => {
+          return recipe.dietLabels.includes(element)
         })
-      }
+        return false
+      })
     }
-}
+}}
+
 </script>
 <style scoped>
 *, *:before, *:after {
