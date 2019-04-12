@@ -130,12 +130,12 @@ export default {
       filterApplied: false,
       filteredList: null,
       filterOptions: [
-        { tag: 'balanced' },
-        { tag: 'high-protein' },
-        { tag: 'high-fiber' },
-        { tag: 'low-fat' },
+        { tag: 'Balanced' },
+        { tag: 'High-Protein' },
+        { tag: 'High-Fiber' },
+        { tag: 'Low-Fat' },
         { tag: 'Low-Carb' },
-        { tag: 'low-sodium' }
+        { tag: 'Low-Sodium' }
         // { tag: 'vegan' },
         // { tag: 'vegetarian' },
         // { tag: 'dairy-free' },
