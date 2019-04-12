@@ -6,6 +6,7 @@
         <span class="font-weight-heavy">PAN</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <ShoppingList/>
       <v-btn flat href="#FAQ">
         <span class="mr-2">FAQ</span>
       </v-btn>
@@ -24,12 +25,13 @@
 <script>
 import SearchResults from './components/SearchResults'
 import SearchBar from './components/SearchBar'
+import ShoppingList from './components/ShoppingList'
 
 export default {
   components: {
     SearchBar,
-    SearchResults
-    // FilterResults
+    SearchResults,
+    ShoppingList
   }
   // ,
   // computed: {
