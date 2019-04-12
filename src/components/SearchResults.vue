@@ -82,18 +82,13 @@ export default {
       return 0
     },
     updateList () {
-      if (this.filterApplied){
-        let listItems = this.filteredList
-        let begin = (this.page -1) * this.numItemPerPage
-        let end = begin + this.numItemPerPage
-        return listItems.slice(begin, end)
-      } else if (this.recipeList !== null) {
-        let listItems = this.recipeList
+      if (this.recipeList !== null) {
+        let listItems = this.filteredList ? this.filteredList : this.recipeList
         let begin = (this.page - 1) * this.numItemPerPage
         let end = begin + this.numItemPerPage
         return listItems.slice(begin, end)
       }
-      return this.recipeList
+      return []
     },
     renderedComponent () {
       return this.$store.getters.getRecipes != null
@@ -110,7 +105,7 @@ export default {
         { tag: 'high-protein' },
         { tag: 'high-fiber' },
         { tag: 'low-fat' },
-        { tag: 'low-carb' },
+        { tag: 'Low-Carb' },
         { tag: 'low-sodium' }
         // { tag: 'vegan' },
         // { tag: 'vegetarian' },
@@ -135,13 +130,13 @@ export default {
     getFilteredResults () {
       this.filterApplied = true;
       this.filteredList = this.recipeList.filter( recipe => {
-        this.tagged.forEach(element => {
-          return recipe.dietLabels.includes(element)
+        return this.tagged.some( tag => {
+          return recipe.recipe.dietLabels.includes(tag)
         })
-        return false
       })
     }
-}}
+  }
+}
 
 </script>
 <style scoped>
@@ -151,6 +146,7 @@ export default {
 
 #filterBoxOptions {
   position: fixed;
+  z-index: 2;
 }
 
 .container {
