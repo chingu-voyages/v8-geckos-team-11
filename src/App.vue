@@ -15,8 +15,6 @@
 <!-- Searchbar -->
     <v-content>
       <SearchBar/>
-<!-- Filter -->
-
 <!-- Search Results -->
       <SearchResults/>
     </v-content>
@@ -33,11 +31,5 @@ export default {
     SearchResults,
     ShoppingList
   }
-  // ,
-  // computed: {
-  //   renderedComponent () {
-  //     return this.$store.getters.getRecipes != null
-  //   }
-  // }
 }
 </script>
