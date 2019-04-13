@@ -1,7 +1,29 @@
 <template>
-  <v-container grid-list-md>
-    <v-layout fluid row wrap>
-      <v-flex v-for="(item, i) in updateList" :key="i" xl6 lg12>
+  <v-container v-if="renderedComponent">
+    <v-layout row wrap>
+<!-- inserting filter here -->
+    <v-container id="filterBoxOptions" lg3>
+          <v-flex>
+            <v-card color="gray" light>
+              <v-card-title primary class="title">Diet Filters: </v-card-title>
+              <div>
+                <v-divider></v-divider>
+                <v-layout row wrap>
+                    <v-flex v-for="item in filterOptions" :key="item.id" wrap lg3>
+                        <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
+                        </v-checkbox>
+                    </v-flex>
+                </v-layout>
+                <button v-if="tagged.length > 0" v-on:click="getFilteredResults">
+                    Apply Filters
+                </button>
+              </div>
+            </v-card>
+          </v-flex>
+    </v-container>
+<!--end of filter-->
+
+      <v-flex v-for="(item, i) in updateList" :key="i" xl6 lg8>
         <div class="card-container">
           <v-card class="u-clearfix">
             <div class="card-body">
@@ -83,25 +105,48 @@ export default {
       return this.$store.getters.CART
     },
     maxPaginationVisible () {
-      if (this.recipeList !== null) {
-        return Math.ceil(this.recipeList.length / this.numItemPerPage)
+      if (this.filteredList !== null) {
+        return Math.ceil(this.filteredList.length / this.numItemPerPage)
       }
       return 0
     },
     updateList () {
       if (this.recipeList !== null) {
-        let listItems = this.recipeList
+        let listItems = this.filteredList ? this.filteredList : this.recipeList
         let begin = (this.page - 1) * this.numItemPerPage
         let end = begin + this.numItemPerPage
         return listItems.slice(begin, end)
       }
       return []
+    },
+    renderedComponent () {
+      return this.$store.getters.getRecipes != null
     }
   },
   data () {
     return {
       page: 1,
       numItemPerPage: 10,
+      filterApplied: false,
+      filteredList: null,
+      filterOptions: [
+        { tag: 'Balanced' },
+        { tag: 'High-Protein' },
+        { tag: 'High-Fiber' },
+        { tag: 'Low-Fat' },
+        { tag: 'Low-Carb' },
+        { tag: 'Low-Sodium' }
+        // { tag: 'vegan' },
+        // { tag: 'vegetarian' },
+        // { tag: 'dairy-free' },
+        // { tag: 'low-sugar' },
+        // { tag: 'low-fat-abs' },
+        // { tag: 'sugar-conscious' },
+        // { tag: 'fat free' },
+        // { tag: 'gluten free' },
+        // { tag: 'wheat free' }
+      ],
+      tagged: [],
       dialogTitle: '',
       dialogMsg: '',
       dialog: false
@@ -113,6 +158,14 @@ export default {
       var hours = (totalMinutes - minutes) / 60
       var time = hours + ' hr ' + minutes + ' min'
       return time
+    },
+    getFilteredResults () {
+      this.filterApplied = true;
+      this.filteredList = this.recipeList.filter( recipe => {
+        return this.tagged.some( tag => {
+          return recipe.recipe.dietLabels.includes(tag)
+        })
+      })
     },
     addCart (payload) {
       if (!this.isInCart(payload)) {
@@ -144,10 +197,20 @@ export default {
     }
   }
 }
+
 </script>
 <style scoped>
 *, *:before, *:after {
   box-sizing: inherit;
+}
+
+#filterBoxOptions {
+  position: fixed;
+  z-index: 2;
+}
+
+.container {
+  min-width: 1000px;
 }
 
 .card-container {

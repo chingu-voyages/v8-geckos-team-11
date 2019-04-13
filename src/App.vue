@@ -15,7 +15,6 @@
 <!-- Searchbar -->
     <v-content>
       <SearchBar/>
-<!-- Filter -->
 <!-- Search Results -->
       <SearchResults/>
     </v-content>
