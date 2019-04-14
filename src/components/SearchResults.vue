@@ -87,6 +87,7 @@
 </template>
 <script>
 import NutritionFacts from './NutritionFacts'
+
 export default {
   components: {
     NutritionFacts
@@ -98,18 +99,23 @@ export default {
     cartList () {
       return this.$store.getters.CART
     },
+    // ----------------- Filter Computed -----------------
+    // Gets currentList
+    currentList () {
+      return this.tagged.length > 0 ? this.getFilteredResults() : this.recipeList
+    },
     // ----------------- Pagination Computed -----------------
-    // Function to determine how many pages there are
+    // Determine how many pages
     maxPaginationVisible () {
-      if (this.updateList !== null) {
-        return Math.ceil(this.updateList.length / this.numItemPerPage)
+      if (this.currentList !== null) {
+        return Math.ceil(this.currentList.length / this.numItemPerPage)
       }
       return 0
     },
     // Shows what recipes to use on page
     updateList () {
-      if (this.recipeList !== null) {
-        let listItems = this.tagged.length > 0 ? this.getFilteredResults() : this.recipeList
+      if (this.currentList !== null) {
+        let listItems = this.currentList
         let begin = (this.page - 1) * this.numItemPerPage
         let end = begin + this.numItemPerPage
         return listItems.slice(begin, end)
@@ -124,7 +130,7 @@ export default {
   data () {
     return {
       page: 1,
-      numItemPerPage: 5,
+      numItemPerPage: 10,
       filterOptions: [
         { tag: 'Balanced' },
         { tag: 'High-Protein' },
