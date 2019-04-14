@@ -1,28 +1,20 @@
 <template>
-  <v-container v-if="renderedComponent">
+  <v-container class="ma-0" v-if="renderedComponent">
     <v-layout row wrap>
 <!-- inserting filter here -->
-    <v-container id="filterBoxOptions" lg3>
-          <v-flex>
-            <v-card color="gray" light>
-              <v-card-title primary class="title">Diet Filters: </v-card-title>
-              <div>
-                <v-divider></v-divider>
-                <v-layout row wrap>
-                    <v-flex v-for="item in filterOptions" :key="item.id" wrap lg3>
-                        <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
-                        </v-checkbox>
-                    </v-flex>
-                </v-layout>
-                <button v-if="tagged.length > 0" v-on:click="getFilteredResults">
-                    Apply Filters
-                </button>
-              </div>
-            </v-card>
-          </v-flex>
-    </v-container>
+      <v-card id="filterBoxOptions">
+        <v-navigation-drawer permanent floating xs3>
+          <v-card-title primary class="title">Diet Filters: </v-card-title>
+            <v-divider></v-divider>
+            <v-layout column>
+                <v-flex v-for="item in filterOptions" :key="item.id">
+                    <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
+                    </v-checkbox>
+                </v-flex>
+            </v-layout>
+        </v-navigation-drawer>
+      </v-card>
 <!--end of filter-->
-
       <v-flex v-for="(item, i) in updateList" :key="i" xl6 lg8>
         <div class="card-container">
           <v-card class="u-clearfix">
@@ -126,8 +118,7 @@ export default {
   data () {
     return {
       page: 1,
-      numItemPerPage: 10,
-      filterApplied: false,
+      numItemPerPage: 5,
       filteredList: null,
       filterOptions: [
         { tag: 'Balanced' },
@@ -160,9 +151,8 @@ export default {
       return time
     },
     getFilteredResults () {
-      this.filterApplied = true;
-      this.filteredList = this.recipeList.filter( recipe => {
-        return this.tagged.some( tag => {
+      this.filteredList = this.recipeList.filter(recipe => {
+        return this.tagged.some(tag => {
           return recipe.recipe.dietLabels.includes(tag)
         })
       })
@@ -206,7 +196,11 @@ export default {
 
 #filterBoxOptions {
   position: fixed;
+  top: 25.6%;
+  left: 6%;
   z-index: 2;
+  height: 385px;
+  width: 275px;
 }
 
 .container {
@@ -256,6 +250,10 @@ html {
 
 .icon li span {
   margin-left: 7px;
+}
+
+.layout.column > .flex {
+  max-height: 40px;
 }
 
 .subtle {
