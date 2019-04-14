@@ -1,7 +1,7 @@
 <template>
   <v-container class="ma-0" v-if="renderedComponent">
     <v-layout row wrap>
-<!-- inserting filter here -->
+<!-- ----------------- FilterBox Options ----------------- -->
       <v-card id="filterBoxOptions">
         <v-navigation-drawer permanent floating xs3>
           <v-card-title primary class="title">Diet Filters: </v-card-title>
@@ -14,7 +14,7 @@
             </v-layout>
         </v-navigation-drawer>
       </v-card>
-<!--end of filter-->
+<!-- ----------------- Recipe Cards ----------------- -->
       <v-flex v-for="(item, i) in updateList" :key="i" xl6 lg8>
         <div class="card-container">
           <v-card class="u-clearfix">
@@ -47,6 +47,7 @@
       </v-flex>
     </v-layout>
     <v-layout justify-center class="mt-3">
+<!-- ----------------- Pagination ----------------- -->
       <v-pagination
       v-if="updateList.length !== 0"
        v-model="page"
@@ -59,6 +60,7 @@
       v-model="dialog"
       width="500"
     >
+<!-- ----------------- Added to List Dialog ----------------- -->
       <v-card>
         <v-card-title
           class="headline grey lighten-2"
@@ -96,21 +98,25 @@ export default {
     cartList () {
       return this.$store.getters.CART
     },
+    // ----------------- Pagination Computed -----------------
+    // Function to determine how many pages there are
     maxPaginationVisible () {
-      if (this.filteredList !== null) {
-        return Math.ceil(this.filteredList.length / this.numItemPerPage)
+      if (this.updateList !== null) {
+        return Math.ceil(this.updateList.length / this.numItemPerPage)
       }
       return 0
     },
+    // Shows what recipes to use on page
     updateList () {
       if (this.recipeList !== null) {
-        let listItems = this.filteredList ? this.filteredList : this.recipeList
+        let listItems = this.tagged.length > 0 ? this.getFilteredResults() : this.recipeList
         let begin = (this.page - 1) * this.numItemPerPage
         let end = begin + this.numItemPerPage
         return listItems.slice(begin, end)
       }
       return []
     },
+    // Displays search results after query
     renderedComponent () {
       return this.$store.getters.getRecipes != null
     }
@@ -119,7 +125,6 @@ export default {
     return {
       page: 1,
       numItemPerPage: 5,
-      filteredList: null,
       filterOptions: [
         { tag: 'Balanced' },
         { tag: 'High-Protein' },
@@ -144,19 +149,26 @@ export default {
     }
   },
   methods: {
+    // Convert seconds into hours and minutes
     getTime (totalMinutes) {
       var minutes = totalMinutes % 60
       var hours = (totalMinutes - minutes) / 60
       var time = hours + ' hr ' + minutes + ' min'
       return time
     },
+    // ----------------- Filter Methods -----------------
+    // Gets list of recipe that matches desired tags if any
     getFilteredResults () {
-      this.filteredList = this.recipeList.filter(recipe => {
+      let filteredList = []
+      filteredList = this.recipeList.filter(recipe => {
         return this.tagged.some(tag => {
           return recipe.recipe.dietLabels.includes(tag)
         })
       })
+      return filteredList
     },
+    // ----------------- Adding to Shopping List -----------------
+    // Adds to shopping list and displays error if already added
     addCart (payload) {
       if (!this.isInCart(payload)) {
         this.$store.dispatch('addCart', payload)
@@ -169,6 +181,7 @@ export default {
         this.dialogMsg = 'Recipe is already Added :('
       }
     },
+    // Checks if already in shopping list
     isInCart (payload) {
       let vm = this
       if (this.cartList.length !== 0) {
