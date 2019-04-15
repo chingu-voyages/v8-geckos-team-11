@@ -1,7 +1,7 @@
 <template>
-  <v-form @submit.prevent='search'>
-    <v-container>
-      <v-layout row wrap>
+  <v-container>
+    <v-form @submit.prevent='search'>
+      <v-layout justify-center row wrap>
         <v-flex xs12 sm6 md6>
           <div class='form-group' :class="{ 'form-group--error': $v.query.$error }">
             <v-text-field
@@ -20,12 +20,11 @@
           color="success"
         >Search</v-btn>
       </v-layout>
-    </v-container>
-  </v-form>
+   </v-form>
+  </v-container>
 </template>
 
 <script>
-
 import { required } from 'vuelidate/lib/validators'
 
 export default {
@@ -58,3 +57,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.v-form {
+  padding: 40px 20px;
+}
+</style>

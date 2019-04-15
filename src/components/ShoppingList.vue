@@ -50,6 +50,7 @@
     </v-dialog>
   </div>
 </template>
+
 <script>
 export default {
   data () {
@@ -72,6 +73,7 @@ export default {
   }
 }
 </script>
+
 <style>
 ul {
   list-style: none;

@@ -85,6 +85,7 @@
     </v-dialog>
   </v-container>
 </template>
+
 <script>
 import NutritionFacts from './NutritionFacts'
 
@@ -206,8 +207,8 @@ export default {
     }
   }
 }
-
 </script>
+
 <style scoped>
 *, *:before, *:after {
   box-sizing: inherit;
