@@ -2,7 +2,7 @@
   <v-container>
     <v-form @submit.prevent='search'>
       <v-layout justify-center row wrap>
-        <v-flex xs12 sm6 md6>
+        <v-flex xs12 sm6>
           <div class='form-group' :class="{ 'form-group--error': $v.query.$error }">
             <v-text-field
               class='form__input'

@@ -2,11 +2,14 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
+        <v-toolbar-side-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-toolbar-side-icon>
         <span><sub>In</sub><sup>The</sup></span>
         <span class="font-weight-heavy">PAN</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <ShoppingList/>
+      <div class="hidden-sm-and-down">
+        <ShoppingList/>
+      </div>
       <v-btn flat href="#FAQ">
         <span class="mr-2">FAQ</span>
       </v-btn>
@@ -16,7 +19,7 @@
     <v-content>
       <SearchBar/>
 <!-- Search Results -->
-      <SearchResults/>
+      <SearchResults :drawer="this.drawer"/>
     </v-content>
   </v-app>
 </template>
@@ -30,6 +33,16 @@ export default {
     SearchBar,
     SearchResults,
     ShoppingList
+  },
+  data () {
+    return {
+      drawer: false
+    }
+  },
+  watch: {
+    '$vuetify.breakpoint.mdAndUp' () {
+      this.drawer = false
+    }
   }
 }
 </script>

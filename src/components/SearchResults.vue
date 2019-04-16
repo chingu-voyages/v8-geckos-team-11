@@ -2,20 +2,32 @@
   <v-container class="ma-0" v-if="renderedComponent">
     <v-layout row wrap>
 <!-- ----------------- FilterBox Options ----------------- -->
-      <v-card id="filterBoxOptions">
-        <v-navigation-drawer permanent floating xs3>
-          <v-card-title primary class="title">Diet Filters: </v-card-title>
-            <v-divider></v-divider>
-            <v-layout column>
-                <v-flex v-for="item in filterOptions" :key="item.id">
-                    <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
-                    </v-checkbox>
-                </v-flex>
-            </v-layout>
-        </v-navigation-drawer>
+      <v-card id="filterBoxOptions" class="hidden-sm-and-down" xs3>
+        <v-card-title primary class="title">Diet Filters: </v-card-title>
+          <v-divider></v-divider>
+          <v-layout column>
+              <v-flex v-for="item in filterOptions" :key="item.id">
+                  <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
+                  </v-checkbox>
+              </v-flex>
+          </v-layout>
       </v-card>
+<!-- ----------------- Navigation Drawer ----------------- -->
+      <v-navigation-drawer app v-model="drawer" disable-resize-watcher>
+        <v-layout column>
+          <v-list subheader>
+            <v-subheader>Diet Filters:</v-subheader>
+            <v-list-tile v-for="item in filterOptions" :key="item.id">
+              <v-list-tile-action>
+                  <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
+                  </v-checkbox>
+              </v-list-tile-action>
+            </v-list-tile>
+          </v-list>
+        </v-layout>
+      </v-navigation-drawer>
 <!-- ----------------- Recipe Cards ----------------- -->
-      <v-flex v-for="(item, i) in updateList" :key="i" xl6 lg8>
+      <v-flex v-for="(item, i) in updateList" :key="i" xs3 offset-xs2>
         <div class="card-container">
           <v-card class="u-clearfix">
             <div class="card-body">
@@ -38,6 +50,7 @@
               <v-card-actions>
                 <v-btn flat color="orange" :href="item.recipe.url" target="_blank">Read More</v-btn>
                 <NutritionFacts v-bind:facts="item.recipe.totalNutrients" />
+                <br/>
                 <v-btn flat color="orange" @click="addCart(item.recipe)">Add to Cart</v-btn>
               </v-card-actions>
             </div>
@@ -128,6 +141,9 @@ export default {
       return this.$store.getters.getRecipes != null
     }
   },
+  props: {
+    drawer: Boolean
+  },
   data () {
     return {
       page: 1,
@@ -217,7 +233,7 @@ export default {
 #filterBoxOptions {
   position: fixed;
   top: 25.6%;
-  left: 6%;
+  left: 3%;
   z-index: 2;
   height: 385px;
   width: 275px;
@@ -238,6 +254,7 @@ export default {
   float: left;
   padding-right: 20px;
   width: 310px;
+  height: 100%;
 }
 
 .card-author {
