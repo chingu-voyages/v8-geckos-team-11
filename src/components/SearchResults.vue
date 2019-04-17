@@ -54,13 +54,13 @@ export default {
       return this.$store.getters.getRecipes
     },
     maxPaginationVisible () {
-      if (this.recipeList !== null) {
+      if (this.recipeList !== null && this.recipeList.length > 0) {
         return Math.ceil(this.recipeList.length / this.numItemPerPage)
       }
       return 0
     },
     updateList () {
-      if (this.recipeList !== null) {
+      if (this.recipeList !== null && this.recipeList.length > 0) {
         let listItems = this.recipeList
         let begin = (this.page - 1) * this.numItemPerPage
         let end = begin + this.numItemPerPage
