@@ -22,7 +22,6 @@
           </v-flex>
     </v-container>
 <!--end of filter-->
-
       <v-flex v-for="(item, i) in updateList" :key="i" xl6 lg8>
         <div class="card-container">
           <v-card class="u-clearfix">
