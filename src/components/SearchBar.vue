@@ -27,7 +27,6 @@
 </template>
 
 <script>
-
 const { required } = require('vuelidate/lib/validators')
 export default {
   data () {
@@ -36,13 +35,11 @@ export default {
       submitStatus: null
     }
   },
-
   validations: {
     query: {
       required
     }
   },
-
   computed: {
     recipeList () {
       return this.$store.getters.getRecipes
@@ -70,7 +67,7 @@ export default {
           }
         }, 5000)
       }
-    }
+    }  
   }
 }
 </script>

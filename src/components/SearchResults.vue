@@ -1,7 +1,28 @@
 <template>
-  <v-container grid-list-md>
-    <v-layout fluid row wrap>
-      <v-flex v-for="(item, i) in updateList" :key="i" xl6 lg12>
+  <v-container v-if="renderedComponent">
+    <v-layout row wrap>
+<!-- inserting filter here -->
+    <v-container id="filterBoxOptions" lg3>
+          <v-flex>
+            <v-card color="gray" light>
+              <v-card-title primary class="title">Diet Filters: </v-card-title>
+              <div>
+                <v-divider></v-divider>
+                <v-layout row wrap>
+                    <v-flex v-for="item in filterOptions" :key="item.id" wrap lg3>
+                        <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
+                        </v-checkbox>
+                    </v-flex>
+                </v-layout>
+                <button v-if="tagged.length > 0" v-on:click="getFilteredResults">
+                    Apply Filters
+                </button>
+              </div>
+            </v-card>
+          </v-flex>
+    </v-container>
+<!--end of filter-->
+      <v-flex v-for="(item, i) in updateList" :key="i" xl6 lg8>
         <div class="card-container">
           <v-card class="u-clearfix">
             <div class="card-body">
@@ -24,6 +45,7 @@
               <v-card-actions>
                 <v-btn flat color="orange" :href="item.recipe.url" target="_blank">Read More</v-btn>
                 <NutritionFacts v-bind:facts="item.recipe.totalNutrients" />
+                <v-btn flat color="orange" @click="addCart(item.recipe)">Add to Cart</v-btn>
               </v-card-actions>
             </div>
             <v-img :src="item.recipe.image" height="380px"></v-img>
@@ -40,11 +62,36 @@
       >
       </v-pagination>
     </v-layout>
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <v-card>
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          {{dialogTitle}}
+        </v-card-title>
+        <v-card-text>
+          {{dialogMsg}}
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            flat
+            @click="dialog = false"
+          >
+            OK
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 <script>
 import NutritionFacts from './NutritionFacts'
-
 export default {
   components: {
     NutritionFacts
@@ -53,26 +100,55 @@ export default {
     recipeList () {
       return this.$store.getters.getRecipes
     },
+    cartList () {
+      return this.$store.getters.CART
+    },
     maxPaginationVisible () {
-      if (this.recipeList !== null && this.recipeList.length > 0) {
-        return Math.ceil(this.recipeList.length / this.numItemPerPage)
+      if (this.filteredList !== null) {
+        return Math.ceil(this.filteredList.length / this.numItemPerPage)
       }
       return 0
     },
     updateList () {
-      if (this.recipeList !== null && this.recipeList.length > 0) {
-        let listItems = this.recipeList
+      if (this.recipeList !== null) {
+        let listItems = this.filteredList ? this.filteredList : this.recipeList
         let begin = (this.page - 1) * this.numItemPerPage
         let end = begin + this.numItemPerPage
         return listItems.slice(begin, end)
       }
       return []
+    },
+    renderedComponent () {
+      return this.$store.getters.getRecipes != null
     }
   },
   data () {
     return {
       page: 1,
-      numItemPerPage: 10
+      numItemPerPage: 10,
+      filterApplied: false,
+      filteredList: null,
+      filterOptions: [
+        { tag: 'Balanced' },
+        { tag: 'High-Protein' },
+        { tag: 'High-Fiber' },
+        { tag: 'Low-Fat' },
+        { tag: 'Low-Carb' },
+        { tag: 'Low-Sodium' }
+        // { tag: 'vegan' },
+        // { tag: 'vegetarian' },
+        // { tag: 'dairy-free' },
+        // { tag: 'low-sugar' },
+        // { tag: 'low-fat-abs' },
+        // { tag: 'sugar-conscious' },
+        // { tag: 'fat free' },
+        // { tag: 'gluten free' },
+        // { tag: 'wheat free' }
+      ],
+      tagged: [],
+      dialogTitle: '',
+      dialogMsg: '',
+      dialog: false
     }
   },
   methods: {
@@ -81,13 +157,59 @@ export default {
       var hours = (totalMinutes - minutes) / 60
       var time = hours + ' hr ' + minutes + ' min'
       return time
+    },
+    getFilteredResults () {
+      this.filterApplied = true;
+      this.filteredList = this.recipeList.filter( recipe => {
+        return this.tagged.some( tag => {
+          return recipe.recipe.dietLabels.includes(tag)
+        })
+      })
+    },
+    addCart (payload) {
+      if (!this.isInCart(payload)) {
+        this.$store.dispatch('addCart', payload)
+        this.dialog = true
+        this.dialogTitle = 'Success'
+        this.dialogMsg = 'Recipe Added to Shopping List'
+      } else {
+        this.dialog = true
+        this.dialogTitle = 'Sorry'
+        this.dialogMsg = 'Recipe is already Added :('
+      }
+    },
+    isInCart (payload) {
+      let vm = this
+      if (this.cartList.length !== 0) {
+        let result = this.cartList.find(elem => {
+          return elem.id === vm.extractId(payload.uri)
+        })
+        if (result === undefined) {
+          return false
+        }
+        return true
+      }
+      return false
+    },
+    extractId (uri) {
+      return uri.substr(uri.indexOf('_') + 1, uri.length)
     }
   }
 }
+
 </script>
 <style scoped>
 *, *:before, *:after {
   box-sizing: inherit;
+}
+
+#filterBoxOptions {
+  position: fixed;
+  z-index: 2;
+}
+
+.container {
+  min-width: 1000px;
 }
 
 .card-container {
