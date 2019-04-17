@@ -19,12 +19,9 @@ export default {
         ingredients: newRecipe.ingredientLines
       })
     },
-    /*
-REMOVE_CART(state, ingredient) {
-  var cart = state.cart
-  cart.splice(cart.indexOf(ingredient), 1)
-}
-*/
+    REMOVE_ITEM (state, recipe) {
+      state.cart = state.cart.filter(i => i !== recipe)
+    },
     CLEAR_CART (state) {
       state.cart = []
     }
@@ -35,6 +32,9 @@ REMOVE_CART(state, ingredient) {
     },
     clearCart: (context) => {
       context.commit('CLEAR_CART')
+    },
+    removeRecipe: (context, payload) => {
+      context.commit('REMOVE_ITEM', payload)
     }
   }
 }
