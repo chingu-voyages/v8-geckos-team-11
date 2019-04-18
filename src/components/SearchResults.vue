@@ -16,6 +16,9 @@
       <v-navigation-drawer app v-model="drawer" disable-resize-watcher>
         <v-layout column>
           <v-list subheader>
+            <v-list-tile>
+              <ShoppingList/>
+            </v-list-tile>
             <v-subheader>Diet Filters:</v-subheader>
             <v-list-tile v-for="item in filterOptions" :key="item.id">
               <v-list-tile-action>
@@ -50,7 +53,6 @@
               <v-card-actions>
                 <v-btn flat color="orange" :href="item.recipe.url" target="_blank">Read More</v-btn>
                 <NutritionFacts v-bind:facts="item.recipe.totalNutrients" />
-                <br/>
                 <v-btn flat color="orange" @click="addCart(item.recipe)">Add to Cart</v-btn>
               </v-card-actions>
             </div>
@@ -59,8 +61,8 @@
         </div>
       </v-flex>
     </v-layout>
-    <v-layout justify-center class="mt-3">
 <!-- ----------------- Pagination ----------------- -->
+    <v-layout justify-center class="mt-3">
       <v-pagination
       v-if="updateList.length !== 0"
        v-model="page"
@@ -101,10 +103,11 @@
 
 <script>
 import NutritionFacts from './NutritionFacts'
-
+import ShoppingList from './ShoppingList'
 export default {
   components: {
-    NutritionFacts
+    NutritionFacts,
+    ShoppingList
   },
   computed: {
     recipeList () {
