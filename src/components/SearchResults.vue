@@ -1,6 +1,6 @@
 <template>
   <v-container class="ma-0" v-if="renderedComponent">
-    <v-layout row wrap>
+    <v-layout align-center justify-center row wrap>
 <!-- ----------------- FilterBox Options ----------------- -->
       <v-card id="filterBoxOptions" class="hidden-sm-and-down" xs3>
         <v-card-title primary class="title">Diet Filters: </v-card-title>
@@ -30,45 +30,59 @@
         </v-layout>
       </v-navigation-drawer>
 <!-- ----------------- Recipe Cards ----------------- -->
-      <v-flex v-for="(item, i) in updateList" :key="i" xs3 offset-xs2>
-        <div class="card-container">
-          <v-card class="u-clearfix">
-            <div class="card-body">
-              <v-card-title>
-                <div class="headline">{{ item.recipe.label }}</div>
-                <span class="card-author subtle">{{ item.recipe.source }}</span>
-              </v-card-title>
-              <v-card-text class="card-description subtle">
-                <ul class="icon">
-                  <li><v-icon >person</v-icon><span>{{ item.recipe.yield }}</span></li>
-                  <li><v-icon>timer</v-icon><span>{{ getTime(item.recipe.totalTime) }}</span></li>
-                </ul>
-                <ul v-for="(health, index) in item.recipe.healthLabels" :key="index">
-                  <li>{{ health }}</li>
-                </ul>
-                <ul v-for="(diet) in item.recipe.dietLabels" :key="diet">
-                  <li>{{ diet }}</li>
-                </ul>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn flat color="orange" :href="item.recipe.url" target="_blank">Read More</v-btn>
-                <NutritionFacts v-bind:facts="item.recipe.totalNutrients" />
-                <v-btn flat color="orange" @click="addCart(item.recipe)">Add to Cart</v-btn>
-              </v-card-actions>
+      <v-flex v-for="(item, i) in updateList" :key="i" xs4>
+        <v-card
+          class="mx-auto my-5 recipeCard"
+          min-width="316px"
+          max-width="374px"
+        >
+          <v-img
+            aspect-ratio
+            height="300px"
+            :src="item.recipe.image"
+          ></v-img>
+          <v-card-title primary-title>
+            <div>
+              <div class="headline">{{ item.recipe.label }}</div>
+              <span class="grey--text">{{ item.recipe.source }}</span>
             </div>
-            <v-img :src="item.recipe.image" height="380px"></v-img>
-          </v-card>
-        </div>
+          </v-card-title>
+          <v-card-text>
+            <ul>
+              <li><v-icon>person</v-icon><span>{{ item.recipe.yield }}</span></li>
+              <li><v-icon>timer</v-icon><span>{{ getTime(item.recipe.totalTime) }}</span></li>
+            </ul>
+            <ul v-for="(diet) in item.recipe.dietLabels" :key="diet">
+              <li>{{ diet }}</li>
+            </ul>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              color="orange"
+              :href="item.recipe.url"
+              target="_blank"
+              flat
+            >
+              Read More
+            </v-btn>
+            <NutritionFacts v-bind:facts="item.recipe.totalNutrients"/>
+            <v-layout align-center justify-end>
+              <v-btn icon @click="addCart(item.recipe)">
+                <v-icon>add_shopping_cart</v-icon>
+              </v-btn>
+            </v-layout>
+          </v-card-actions>
+        </v-card>
       </v-flex>
     </v-layout>
 <!-- ----------------- Pagination ----------------- -->
-    <v-layout justify-center class="mt-3">
+    <v-layout align-end justify-center class="mt-3">
       <v-pagination id="pagination3d"
       v-if="updateList.length !== 0"
        v-model="page"
        :length="maxPaginationVisible"
        :total-visible="maxPaginationVisible"
-       prev-icon="chevron_left" prev-icon-id="prevIcon" 
+       prev-icon="chevron_left" prev-icon-id="prevIcon"
        next-icon="chevron_right" next-icon-id="nextIcon"
       >
       </v-pagination>
@@ -231,130 +245,49 @@ export default {
 </script>
 
 <style scoped>
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
 #filterBoxOptions {
   position: fixed;
   top: 25.6%;
   left: 3%;
-  z-index: 2;
+  z-index: 1;
   height: 365px;
   width: 220px;
+  padding: 30px;
+  transform: translateY(25%);
 }
 
 #pagination3d {
   transform: perspective(125px) rotateY(-60deg);
 }
 
-.container {
-  min-width: 1000px;
+.layout.column > .flex {
+  max-height: 40px;
 }
 
-.card-container {
-  margin: 25px auto 0;
-  position: relative;
-  width: 692px;
+.v-card__title--primary {
+  padding-bottom: 0;
 }
 
-.card-body {
-  display: inline-block;
-  float: left;
-  padding-right: 20px;
-  width: 310px;
-  height: 100%;
-}
-
-.card-author {
-  font-size: 12px;
-  letter-spacing: .5px;
-  text-transform: uppercase;
-}
-
-.headline {
-  width: 100%;
-}
-
-html {
-  background: #FAF7F2;
-  box-sizing: border-box;
-  font-family: sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-}
-
-.icon li {
+li {
   display: inline-block;
   margin-left: 1em;
   line-height: 1em;
 }
 
-.icon li:first-child {
+li:first-child {
   margin-left: 0;
 }
 
-.icon li span {
+li span {
   margin-left: 7px;
 }
 
-.layout.column > .flex {
-  max-height: 40px;
-}
-
-.subtle {
-  color: #aaa;
-}
-
-.u-clearfix:before,
-.u-clearfix:after {
-  content: " ";
-  display: table;
-}
-
-.u-clearfix:after {
-  clear: both;
-}
-
-.u-clearfix {
-  *zoom: 1;
-}
-
 ul {
-  list-style: none;
   padding: 0;
 }
-
-.v-card {
-  background-color: #fff;
-  padding: 30px;
-  position: relative;
-  max-height: 440px;
-}
-
-.v-card-title {
-  font-family: serif;
-  font-size: 60px;
-  font-weight: 300;
-  line-height: 60px;
-  margin: 10px 0;
-}
-
-.v-card-text {
-  display: inline-block;
-  font-weight: 300;
-  line-height: 22px;
-  margin: 10px 0;
-}
-
-.v-img {
-  float: right;
-}
-
 /* styling for arrows in pagination container
   maybe we can separate the arrow icons some how?
   need to figure it out... or just add them individually
  */
-
 
 </style>
