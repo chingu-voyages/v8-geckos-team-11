@@ -159,9 +159,9 @@ export default {
       return time
     },
     getFilteredResults () {
-      this.filterApplied = true;
-      this.filteredList = this.recipeList.filter( recipe => {
-        return this.tagged.some( tag => {
+      this.filterApplied = true
+      this.filteredList = this.recipeList.filter(recipe => {
+        return this.tagged.some(tag => {
           return recipe.recipe.dietLabels.includes(tag)
         })
       })
