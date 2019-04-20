@@ -63,11 +63,13 @@
     </v-layout>
 <!-- ----------------- Pagination ----------------- -->
     <v-layout justify-center class="mt-3">
-      <v-pagination
+      <v-pagination id="pagination3d"
       v-if="updateList.length !== 0"
        v-model="page"
        :length="maxPaginationVisible"
        :total-visible="maxPaginationVisible"
+       prev-icon="chevron_left" prev-icon-id="prevIcon" 
+       next-icon="chevron_right" next-icon-id="nextIcon"
       >
       </v-pagination>
     </v-layout>
@@ -238,8 +240,12 @@ export default {
   top: 25.6%;
   left: 3%;
   z-index: 2;
-  height: 385px;
-  width: 275px;
+  height: 365px;
+  width: 220px;
+}
+
+#pagination3d {
+  transform: perspective(125px) rotateY(-60deg);
 }
 
 .container {
@@ -344,4 +350,11 @@ ul {
 .v-img {
   float: right;
 }
+
+/* styling for arrows in pagination container
+  maybe we can separate the arrow icons some how?
+  need to figure it out... or just add them individually
+ */
+
+
 </style>
