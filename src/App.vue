@@ -2,8 +2,7 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span><sub>In</sub><sup>The</sup></span>
-        <span class="font-weight-heavy">PAN</span>
+        <span @click="reloadPage" class="logo">In The PAN</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <ShoppingList/>
@@ -30,6 +29,16 @@ export default {
     SearchBar,
     SearchResults,
     ShoppingList
+  },
+  methods: {
+    reloadPage () {
+      location.reload()
+    }
   }
 }
 </script>
+<style>
+.logo {
+  cursor: pointer;
+}
+</style>
