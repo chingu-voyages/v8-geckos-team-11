@@ -55,8 +55,8 @@
                   <li><v-icon>person</v-icon><span>{{ item.recipe.yield }}</span></li>
                   <li><v-icon>timer</v-icon><span>{{ getTime(item.recipe.totalTime) }}</span></li>
                 </ul>
-                <ul v-for="(diet) in item.recipe.dietLabels" :key="diet">
-                  <li>{{ diet }}</li>
+                <ul>
+                  <li class="dietLabels" v-for="(diet) in item.recipe.dietLabels" :key="diet">{{ diet }}</li>
                 </ul>
               </v-card-text>
               <v-card-actions>
@@ -261,9 +261,14 @@ export default {
   transform: translateY(25%);
 }
 
+/* styling for arrows in pagination container
+  maybe we can separate the arrow icons some how?
+  need to figure it out... or just add them individually
+
 #pagination3d {
   transform: perspective(125px) rotateY(-60deg);
 }
+*/
 
 .layout.column > .flex {
   max-height: 40px;
@@ -294,9 +299,5 @@ li span {
 ul {
   padding: 0;
 }
-/* styling for arrows in pagination container
-  maybe we can separate the arrow icons some how?
-  need to figure it out... or just add them individually
- */
 
 </style>
