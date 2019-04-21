@@ -8,11 +8,13 @@
               class='form__input'
               v-model.trim='$v.query.$model'
               placeholder='start by typing in your favorite food item'
+              clearable
             ></v-text-field>
           </div>
           <p v-if="submitStatus === 'ERROR'">Please type in a food item</p>
-          <p v-if="submitStatus === 'PENDING'">Sending...</p>
           <p v-if="submitStatus === 'OK'">Here are recipes result for food item</p>
+          <p v-if="submitStatus === 'PENDING'">Sending...</p>
+          <p v-if="submitStatus === 'NULL'">Sorry no recipe matching search, try again</p>
         </v-flex>
         <v-btn
           type='submit'
@@ -34,25 +36,38 @@ export default {
       submitStatus: null
     }
   },
-
   validations: {
     query: {
       required
     }
   },
-
+  computed: {
+    recipeList () {
+      return this.$store.getters.getRecipes
+    }
+  },
+  // need to set up a promise, to set recipeList to null
   methods: {
     search () {
+      console.log(this.recipeList)
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
       } else {
+        this.$store.dispatch('callApi', this.query) // this will call the action to get data from api
+        console.log(this.recipeList)
+        /// Timer for following statements
         this.submitStatus = 'PENDING'
         setTimeout(() => {
-          this.submitStatus = 'OK'
-        }, 500)
+          console.log(this.recipeList)
+          if (this.recipeList && this.recipeList.length !== 0) {
+            this.submitStatus = 'OK'
+          } else {
+            this.submitStatus = 'NULL'
+            this.$store.dispatch('clearResult')
+          }
+        }, 5000)
       }
-      this.$store.dispatch('callApi', this.query) // this will call the action to get data from api
     }
   }
 }

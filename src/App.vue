@@ -3,8 +3,7 @@
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <v-toolbar-side-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-toolbar-side-icon>
-        <span><sub>In</sub><sup>The</sup></span>
-        <span class="font-weight-heavy">PAN</span>
+        <span @click="reloadPage" class="logo">In The PAN</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <div class="hidden-sm-and-down">
@@ -43,6 +42,16 @@ export default {
     '$vuetify.breakpoint.mdAndUp' () {
       this.drawer = false
     }
+  },
+  methods: {
+    reloadPage () {
+      location.reload()
+    }
   }
 }
 </script>
+<style>
+.logo {
+  cursor: pointer;
+}
+</style>
