@@ -1,78 +1,83 @@
 <template>
-  <v-container class="ma-0" v-if="renderedComponent">
-    <v-layout align-center justify-center row wrap>
+  <v-container grid-list-md v-if="renderedComponent">
 <!-- ----------------- FilterBox Options ----------------- -->
-      <v-card id="filterBoxOptions" class="hidden-sm-and-down" xs3>
-        <v-card-title primary class="title">Diet Filters: </v-card-title>
-          <v-divider></v-divider>
-          <v-layout column>
-              <v-flex v-for="item in filterOptions" :key="item.id">
-                  <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
-                  </v-checkbox>
-              </v-flex>
-          </v-layout>
-      </v-card>
-<!-- ----------------- Navigation Drawer ----------------- -->
-      <v-navigation-drawer app v-model="drawer" disable-resize-watcher>
+    <v-card id="filterBoxOptions" class="hidden-sm-and-down">
+      <v-card-title primary class="title">Diet Filters: </v-card-title>
+        <v-divider></v-divider>
         <v-layout column>
-          <v-list subheader>
-            <v-list-tile>
-              <ShoppingList/>
-            </v-list-tile>
-            <v-subheader>Diet Filters:</v-subheader>
-            <v-list-tile v-for="item in filterOptions" :key="item.id">
-              <v-list-tile-action>
-                  <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
-                  </v-checkbox>
-              </v-list-tile-action>
-            </v-list-tile>
-          </v-list>
+            <v-flex v-for="item in filterOptions" :key="item.id">
+                <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
+                </v-checkbox>
+            </v-flex>
         </v-layout>
-      </v-navigation-drawer>
+    </v-card>
+<!-- ----------------- Navigation Drawer ----------------- -->
+    <v-navigation-drawer app v-model="drawer" disable-resize-watcher>
+      <v-layout column>
+        <v-list subheader>
+          <v-list-tile>
+            <ShoppingList/>
+          </v-list-tile>
+          <v-subheader>Diet Filters:</v-subheader>
+          <v-list-tile v-for="item in filterOptions" :key="item.id">
+            <v-list-tile-action>
+                <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
+                </v-checkbox>
+            </v-list-tile-action>
+          </v-list-tile>
+        </v-list>
+      </v-layout>
+    </v-navigation-drawer>
 <!-- ----------------- Recipe Cards ----------------- -->
-      <v-flex v-for="(item, i) in updateList" :key="i" xs4>
-        <v-card
-          class="mx-auto my-5 recipeCard"
-          min-width="316px"
-          max-width="374px"
-        >
-          <v-img
-            aspect-ratio
-            height="300px"
-            :src="item.recipe.image"
-          ></v-img>
-          <v-card-title primary-title>
-            <div>
-              <div class="headline">{{ item.recipe.label }}</div>
-              <span class="grey--text">{{ item.recipe.source }}</span>
-            </div>
-          </v-card-title>
-          <v-card-text>
-            <ul>
-              <li><v-icon>person</v-icon><span>{{ item.recipe.yield }}</span></li>
-              <li><v-icon>timer</v-icon><span>{{ getTime(item.recipe.totalTime) }}</span></li>
-            </ul>
-            <ul v-for="(diet) in item.recipe.dietLabels" :key="diet">
-              <li>{{ diet }}</li>
-            </ul>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn
-              color="orange"
-              :href="item.recipe.url"
-              target="_blank"
-              flat
+    <v-layout>
+      <v-flex md8 offset-md2>
+        <v-layout justify-center row wrap>
+          <v-flex v-for="(item, i) in updateList" :key="i" xl4 lg6>
+            <v-card
+              class="mx-1 recipeCard"
+              min-width="316px"
+              max-width="374px"
+              max-height="529px"
             >
-              Read More
-            </v-btn>
-            <NutritionFacts v-bind:facts="item.recipe.totalNutrients"/>
-            <v-layout align-center justify-end>
-              <v-btn icon @click="addCart(item.recipe)">
-                <v-icon>add_shopping_cart</v-icon>
-              </v-btn>
-            </v-layout>
-          </v-card-actions>
-        </v-card>
+              <v-img
+                aspect-ratio
+                height="300px"
+                :src="item.recipe.image"
+              ></v-img>
+              <v-card-title primary-title>
+                <div>
+                  <div class="headline">{{ item.recipe.label }}</div>
+                  <span class="grey--text">{{ item.recipe.source }}</span>
+                </div>
+              </v-card-title>
+              <v-card-text>
+                <ul>
+                  <li><v-icon>person</v-icon><span>{{ item.recipe.yield }}</span></li>
+                  <li><v-icon>timer</v-icon><span>{{ getTime(item.recipe.totalTime) }}</span></li>
+                </ul>
+                <ul v-for="(diet) in item.recipe.dietLabels" :key="diet">
+                  <li>{{ diet }}</li>
+                </ul>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn
+                  color="orange"
+                  :href="item.recipe.url"
+                  target="_blank"
+                  flat
+                >
+                  Read More
+                </v-btn>
+                <NutritionFacts v-bind:facts="item.recipe.totalNutrients"/>
+                <v-layout align-center justify-end>
+                  <v-btn icon @click="addCart(item.recipe)">
+                    <v-icon>add_shopping_cart</v-icon>
+                  </v-btn>
+                </v-layout>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
 <!-- ----------------- Pagination ----------------- -->
@@ -262,6 +267,10 @@ export default {
 
 .layout.column > .flex {
   max-height: 40px;
+}
+
+.v-card__text {
+  min-height: 100px;
 }
 
 .v-card__title--primary {
