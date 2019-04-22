@@ -82,13 +82,13 @@
     </v-layout>
 <!-- ----------------- Pagination ----------------- -->
     <v-layout align-end justify-center class="mt-3">
-      <v-pagination id="pagination3d"
+      <v-pagination 
       v-if="updateList.length !== 0"
        v-model="page"
        :length="maxPaginationVisible"
        :total-visible="maxPaginationVisible"
-       prev-icon="chevron_left" prev-icon-id="prevIcon"
-       next-icon="chevron_right" next-icon-id="nextIcon"
+       prev-icon="chevron_left"
+       next-icon="chevron_right"
       >
       </v-pagination>
     </v-layout>
@@ -171,7 +171,7 @@ export default {
   data () {
     return {
       page: 1,
-      numItemPerPage: 10,
+      numItemPerPage: 5, //10 is default
       filterOptions: [
         { tag: 'Balanced' },
         { tag: 'High-Protein' },
@@ -245,18 +245,32 @@ export default {
     extractId (uri) {
       return uri.substr(uri.indexOf('_') + 1, uri.length)
     }
+  },
+  mounted: function () {
+    this.$nextTick(function(){
+      let navPageArrows = [...document.getElementsByClassName('v-pagination__navigation')]
+
+      navPageArrows.forEach(arrow => {
+        arrow.style = 'transform: none;';
+      }) 
+    })
   }
 }
 </script>
 
-<style scoped>
+<style>
+.v-content {
+  background-image: url('../assets/In_The_Pan_Bg.png');
+  background-attachment: fixed;
+}
+
 #filterBoxOptions {
   position: fixed;
   top: 25.6%;
   left: 3%;
   z-index: 1;
   height: 365px;
-  width: 220px;
+  width: minmax(10%, 220px) ;
   padding: 30px;
   transform: translateY(25%);
 }
@@ -264,11 +278,27 @@ export default {
 /* styling for arrows in pagination container
   maybe we can separate the arrow icons some how?
   need to figure it out... or just add them individually
-
-#pagination3d {
-  transform: perspective(125px) rotateY(-60deg);
-}
 */
+
+ul.v-pagination > li > button.v-pagination__item {
+  transform: perspective(75px) translateX(-5px) rotateY(-50deg) rotateZ(5deg);
+  margin: 0;
+  font-size: 2rem;
+  color: blue;
+  box-shadow: 0 -3px -1px;
+  border: 1px solid;
+  border-color: #FF9800;
+}
+
+ul.v-pagination > li {
+  margin: 0;
+  width: 25px;
+}
+
+ul.v-pagination > li:first-child {
+  margin-right: 25px;
+}
+
 
 .layout.column > .flex {
   max-height: 40px;
@@ -301,3 +331,4 @@ ul {
 }
 
 </style>
+
