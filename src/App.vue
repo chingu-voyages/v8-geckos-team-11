@@ -2,12 +2,19 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span><sub>In</sub><sup>The</sup></span>
-        <span class="font-weight-heavy">PAN</span>
+        <v-toolbar-side-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-toolbar-side-icon>
+        <span @click="reloadPage" class="logo">In The PAN</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+<<<<<<< HEAD
       <ShoppingList/>
       <v-btn flat @click="openFaq">
+=======
+      <div class="hidden-sm-and-down">
+        <ShoppingList/>
+      </div>
+      <v-btn flat href="#FAQ">
+>>>>>>> dev
         <span class="mr-2">FAQ</span>
       </v-btn>
     </v-toolbar>
@@ -16,7 +23,7 @@
     <v-content>
       <SearchBar/>
 <!-- Search Results -->
-      <SearchResults/>
+      <SearchResults :drawer="this.drawer"/>
     </v-content>
     <v-dialog
       v-model="openFaqDialog"
@@ -75,13 +82,32 @@ export default {
   },
   data () {
     return {
+<<<<<<< HEAD
       openFaqDialog: false
     }
   },
   methods: {
     openFaq () {
       this.openFaqDialog = true
+=======
+      drawer: false
+    }
+  },
+  watch: {
+    '$vuetify.breakpoint.mdAndUp' () {
+      this.drawer = false
+    }
+  },
+  methods: {
+    reloadPage () {
+      location.reload()
+>>>>>>> dev
     }
   }
 }
 </script>
+<style>
+.logo {
+  cursor: pointer;
+}
+</style>
