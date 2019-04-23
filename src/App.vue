@@ -6,16 +6,11 @@
         <span @click="reloadPage" class="logo">In The PAN</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-<<<<<<< HEAD
-      <ShoppingList/>
-      <v-btn flat @click="openFaq">
-=======
       <div class="hidden-sm-and-down">
         <ShoppingList/>
       </div>
-      <v-btn flat href="#FAQ">
->>>>>>> dev
-        <span class="mr-2">FAQ</span>
+      <v-btn flat @click.stop="openFaq">
+        <span class="mr-2" >FAQ</span>
       </v-btn>
     </v-toolbar>
 <!-- Chris has added the two components for the main landing page -->
@@ -43,23 +38,15 @@
          <v-container>
            <v-layout row wrap>
              <v-flex xs12>
-               <h2 class="display-3">In the Pan FAQ</h2>
+               <h2 class="display-2">In the Pan FAQ</h2>
                <div>
                  <p>Here you will find the common answers to top frequently questions</p>
                </div>
              </v-flex>
-             <v-flex xs12>
-               <h2>Question# 1</h2>
+             <v-flex xs12 v-for="(q, index) in faq.faq" :key="index">
+               <h3>{{q.q}}</h3>
                <div>
-                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum maiores modi quidem veniam,
-                   expedita quis laboriosam, ullam facere adipisci, iusto, voluptate sapiente corrupti asperiores rem nemo numquam fuga ab at.</p>
-               </div>
-             </v-flex>
-             <v-flex xs12>
-               <h2>Question# 2</h2>
-               <div>
-                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum maiores modi quidem veniam, expedita quis laboriosam,
-                    ullam facere adipisci, iusto, voluptate sapiente corrupti asperiores rem nemo numquam fuga ab at.</p>
+                 <p>{{q.a}}</p>
                </div>
              </v-flex>
            </v-layout>
@@ -73,7 +60,7 @@
 import SearchResults from './components/SearchResults'
 import SearchBar from './components/SearchBar'
 import ShoppingList from './components/ShoppingList'
-
+import faq from './faq/questions'
 export default {
   components: {
     SearchBar,
@@ -82,15 +69,9 @@ export default {
   },
   data () {
     return {
-<<<<<<< HEAD
-      openFaqDialog: false
-    }
-  },
-  methods: {
-    openFaq () {
-      this.openFaqDialog = true
-=======
-      drawer: false
+      openFaqDialog: false,
+      drawer: false,
+      faq: faq
     }
   },
   watch: {
@@ -101,7 +82,9 @@ export default {
   methods: {
     reloadPage () {
       location.reload()
->>>>>>> dev
+    },
+    openFaq () {
+      this.openFaqDialog = true
     }
   }
 }
