@@ -206,13 +206,8 @@ export default {
     // ----------------- Filter Methods -----------------
     // Gets list of recipe that matches desired tags if any
     getFilteredResults () {
-<<<<<<< HEAD
-      this.filterApplied = true
-      this.filteredList = this.recipeList.filter(recipe => {
-=======
       let filteredList = []
       filteredList = this.recipeList.filter(recipe => {
->>>>>>> dev
         return this.tagged.some(tag => {
           return recipe.recipe.dietLabels.includes(tag)
         })
