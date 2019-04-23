@@ -20,7 +20,7 @@
         >
           Shopping List
         </v-card-title>
-        <v-card-text>
+        <v-card-text ref='content'><!-- export shopping list-->
           <template v-if="cartList.length !== 0">
             <v-layout v-for="(recipe) in cartList" :key="recipe.index">
               <v-flex xs2 >
@@ -51,6 +51,14 @@
           >
             Clear
           </v-btn>
+          <!-- export shopping list -->
+          <v-btn
+            color="primary"
+            flat
+            @click="download"
+          >
+            Export to PDF
+          </v-btn>
           <v-btn
             color="primary"
             flat
@@ -65,6 +73,9 @@
 </template>
 
 <script>
+// export shopping list
+import jsPDF from 'jspdf'
+
 export default {
   data () {
     return {
@@ -86,6 +97,22 @@ export default {
     },
     removeRecipe (recipe) {
       this.$store.dispatch('removeRecipe', recipe)
+    },
+    //export shopping list 
+    download () {
+      const doc = new jsPDF('p', 'pt', 'a4')
+      let margins = {
+        top: 70,
+        bottom: 40,
+        left: 30,
+        width: 550
+      }
+      const contentHTML = this.$refs.content.innerHTML
+      doc.text('Shopping List', 20, 50)
+      doc.fromHTML(contentHTML, margins.left, margins.top, {
+        width: margins.width
+      })
+      doc.save('Shopping List.pdf')
     }
   }
 }
