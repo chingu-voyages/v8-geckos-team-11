@@ -11,8 +11,8 @@
               clearable
             ></v-text-field>
           </div>
-          <p v-if="submitStatus === 'ERROR'">Please type in a food item</p>
-          <p v-if="submitStatus === 'OK'">Here are recipes result for food item</p>
+          <p v-if="submitStatus === 'ERROR'" class="ma-0">Please type in a food item</p>
+          <!-- <p v-if="submitStatus === 'OK'">Here are recipes result for food item</p> -->
           <p v-if="submitStatus === 'PENDING'">Sending...</p>
           <p v-if="submitStatus === 'NULL'">Sorry no recipe matching search, try again</p>
         </v-flex>
