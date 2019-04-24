@@ -130,6 +130,11 @@ export default {
     NutritionFacts,
     ShoppingList
   },
+  watch: {
+    tagged () {
+      this.page = 1
+    }
+  },
   computed: {
     recipeList () {
       return this.$store.getters.getRecipes
@@ -179,15 +184,6 @@ export default {
         { tag: 'Low-Fat' },
         { tag: 'Low-Carb' },
         { tag: 'Low-Sodium' }
-        // { tag: 'vegan' },
-        // { tag: 'vegetarian' },
-        // { tag: 'dairy-free' },
-        // { tag: 'low-sugar' },
-        // { tag: 'low-fat-abs' },
-        // { tag: 'sugar-conscious' },
-        // { tag: 'fat free' },
-        // { tag: 'gluten free' },
-        // { tag: 'wheat free' }
       ],
       tagged: [],
       dialogTitle: '',
