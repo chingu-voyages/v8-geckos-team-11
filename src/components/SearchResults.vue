@@ -36,7 +36,7 @@
             type="error"
             outline
           >
-          No results!. Try adding another filter
+          No results found!. Try using another filter
           </v-alert>
           <v-layout justify-center row wrap>
             <v-flex v-for="(item, i) in updateList" :key="i" xl4 lg6>
