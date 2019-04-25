@@ -7,7 +7,7 @@
             <v-text-field
               class='form__input'
               v-model.trim='$v.query.$model'
-              placeholder='start by typing in your favorite food item'
+              placeholder='Start by typing in your favorite food item'
               clearable
             ></v-text-field>
           </div>

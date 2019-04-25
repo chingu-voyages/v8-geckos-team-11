@@ -1,5 +1,5 @@
 <template>
-  <v-container grid-list-md v-if="renderedComponent">
+  <v-container grid-list-lg v-if="renderedComponent">
 <!-- ----------------- FilterBox Options ----------------- -->
     <v-card id="filterBoxOptions" class="hidden-sm-and-down">
       <v-card-title primary class="title">Diet Filters: </v-card-title>
@@ -13,7 +13,7 @@
     </v-card>
 <!-- ----------------- Navigation Drawer ----------------- -->
     <v-navigation-drawer app v-model="drawer" disable-resize-watcher>
-      <v-layout column>
+      <v-layout column class="pt-4 pl-3">
         <v-list subheader>
           <v-list-tile>
             <ShoppingList/>
@@ -30,22 +30,23 @@
     </v-navigation-drawer>
 <!-- ----------------- Recipe Cards ----------------- -->
     <v-layout>
-      <v-flex md8 offset-md2>
-        <v-layout justify-center row wrap>
-          <v-flex v-for="(item, i) in updateList" :key="i" xl4 lg6>
+      <v-flex sm12 md6 lg8 offset-sm0 offset-md3 offset-lg2>
+        <v-layout :class="{ 'ml-2': $vuetify.breakpoint.lg }" justify-center row wrap fill-height>
+          <v-flex v-for="(item, i) in updateList" :key="i" xs10 sm6 md12 lg6 xl4>
             <v-card
               class="mx-1 recipeCard"
-              min-width="316px"
+              min-width="280px"
               max-width="374px"
               max-height="529px"
             >
               <v-img
                 aspect-ratio
-                height="300px"
+                max-height="300px"
+                min-height="200px"
                 :src="item.recipe.image"
               ></v-img>
               <v-card-title primary-title>
-                <div>
+                <div class="cardTitle">
                   <div class="headline">{{ item.recipe.label }}</div>
                   <span class="grey--text">{{ item.recipe.source }}</span>
                 </div>
@@ -65,6 +66,7 @@
                   :href="item.recipe.url"
                   target="_blank"
                   flat
+                  small
                 >
                   Read More
                 </v-btn>
@@ -82,7 +84,7 @@
     </v-layout>
 <!-- ----------------- Pagination ----------------- -->
     <v-layout align-end justify-center class="mt-3">
-      <v-pagination 
+      <v-pagination
       v-if="updateList.length !== 0"
        v-model="page"
        :length="maxPaginationVisible"
@@ -171,7 +173,7 @@ export default {
   data () {
     return {
       page: 1,
-      numItemPerPage: 5, //10 is default
+      numItemPerPage: 5, // 10 is default
       filterOptions: [
         { tag: 'Balanced' },
         { tag: 'High-Protein' },
@@ -247,12 +249,12 @@ export default {
     }
   },
   mounted: function () {
-    this.$nextTick(function(){
+    this.$nextTick(function () {
       let navPageArrows = [...document.getElementsByClassName('v-pagination__navigation')]
 
       navPageArrows.forEach(arrow => {
-        arrow.style = 'transform: none;';
-      }) 
+        arrow.style = 'transform: none;'
+      })
     })
   }
 }
@@ -267,7 +269,7 @@ export default {
 #filterBoxOptions {
   position: fixed;
   top: 25.6%;
-  left: 3%;
+  left: 2%;
   z-index: 1;
   height: 365px;
   width: minmax(10%, 220px) ;
@@ -299,6 +301,16 @@ ul.v-pagination > li:first-child {
   margin-right: 25px;
 }
 
+.cardTitle {
+  width: 100%;
+  max-width: max-content;
+}
+
+.headline {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .layout.column > .flex {
   max-height: 40px;
@@ -331,4 +343,3 @@ ul {
 }
 
 </style>
-
