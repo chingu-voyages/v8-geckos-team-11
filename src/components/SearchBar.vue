@@ -49,13 +49,11 @@ export default {
   // need to set up a promise, to set recipeList to null
   methods: {
     search () {
-      console.log(this.recipeList)
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
       } else {
         this.$store.dispatch('callApi', this.query) // this will call the action to get data from api
-        console.log(this.recipeList)
         /// Timer for following statements
         this.submitStatus = 'PENDING'
         setTimeout(() => {
