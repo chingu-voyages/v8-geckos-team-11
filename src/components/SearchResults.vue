@@ -139,6 +139,7 @@ export default {
   },
   watch: {
     tagged () {
+      this.page = 1
       if (this.tagged.length !== 0) {
         if (this.updateList.length !== 0) {
           this.alert = false
@@ -200,15 +201,6 @@ export default {
         { tag: 'Low-Fat' },
         { tag: 'Low-Carb' },
         { tag: 'Low-Sodium' }
-        // { tag: 'vegan' },
-        // { tag: 'vegetarian' },
-        // { tag: 'dairy-free' },
-        // { tag: 'low-sugar' },
-        // { tag: 'low-fat-abs' },
-        // { tag: 'sugar-conscious' },
-        // { tag: 'fat free' },
-        // { tag: 'gluten free' },
-        // { tag: 'wheat free' }
       ],
       tagged: [],
       dialogTitle: '',
