@@ -1,7 +1,7 @@
 <template>
-  <v-container grid-list-md v-if="renderedComponent">
+  <v-container grid-list-md>
 <!-- ----------------- FilterBox Options ----------------- -->
-    <v-card id="filterBoxOptions" class="hidden-sm-and-down">
+    <v-card id="filterBoxOptions" class="hidden-sm-and-down" v-if="renderedComponent">
       <v-card-title primary class="title">Diet Filters: </v-card-title>
         <v-divider></v-divider>
         <v-layout column>
@@ -18,18 +18,20 @@
           <v-list-tile>
             <ShoppingList/>
           </v-list-tile>
-          <v-subheader>Diet Filters:</v-subheader>
-          <v-list-tile v-for="item in filterOptions" :key="item.id">
-            <v-list-tile-action>
-                <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
-                </v-checkbox>
-            </v-list-tile-action>
-          </v-list-tile>
+          <div v-if="renderedComponent">
+            <v-subheader>Diet Filters:</v-subheader>
+            <v-list-tile v-for="item in filterOptions" :key="item.id">
+              <v-list-tile-action>
+                  <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
+                  </v-checkbox>
+              </v-list-tile-action>
+            </v-list-tile>
+          </div>
         </v-list>
       </v-layout>
     </v-navigation-drawer>
 <!-- ----------------- Recipe Cards ----------------- -->
-    <v-layout>
+    <v-layout v-if="renderedComponent">
       <v-flex md8 offset-md2>
         <v-layout justify-center row wrap>
           <v-flex v-for="(item, i) in updateList" :key="i" xl4 lg6>
@@ -81,7 +83,7 @@
       </v-flex>
     </v-layout>
 <!-- ----------------- Pagination ----------------- -->
-    <v-layout align-end justify-center class="mt-3">
+    <v-layout align-end justify-center class="mt-3" v-if="renderedComponent">
       <v-pagination id="pagination3d"
       v-if="updateList.length !== 0"
        v-model="page"
