@@ -12,7 +12,6 @@
           Shopping List ({{cartSize}})
         </v-btn>
       </template>
-
       <v-card>
         <v-card-title
           class="headline grey lighten-2"
@@ -20,12 +19,12 @@
         >
           Shopping List
         </v-card-title>
-        <v-card-text>
+        <v-card-text ref='content'>
           <template v-if="cartList.length !== 0">
             <v-layout v-for="(recipe) in cartList" :key="recipe.index">
               <v-flex xs2 >
                 <v-btn color="primary" fab small dark @click="removeRecipe(recipe)">
-                  <v-icon small>delete</v-icon>
+                  <v-icon small class='no-print' id='hidediv'>delete</v-icon>
                 </v-btn>
               </v-flex>
               <v-flex xs5>
@@ -54,6 +53,13 @@
           <v-btn
             color="primary"
             flat
+            @click="download"
+          >
+            Export to PDF
+          </v-btn>
+          <v-btn
+            color="primary"
+            flat
             @click="dialog = false"
           >
             Close
@@ -65,6 +71,7 @@
 </template>
 
 <script>
+import jsPDF from 'jspdf'
 export default {
   data () {
     return {
@@ -86,11 +93,55 @@ export default {
     },
     removeRecipe (recipe) {
       this.$store.dispatch('removeRecipe', recipe)
+    },
+    download () {
+      let margins = {
+        top: 70,
+        bottom: 40,
+        left: 30,
+        width: 550
+      }
+      let y = 50
+      let x = 20
+      let contentHTML = this.$refs.content.innerHTML
+      let specialElementHandlers = {
+        '#hidediv': function (element, render) { return true }
+      }
+      const doc = new jsPDF('p', 'pt', 'a4')
+      doc.fromHTML(contentHTML,
+        margins.left,
+        margins.top,
+        {
+          width: margins.width,
+          'elementHandlers': specialElementHandlers
+        },
+        function dispose () {
+          headerFooter(doc, doc.internal.getNumberOfPages())
+        },
+        margins
+      )
+      doc.save('Shopping List.pdf')
+      function headerFooter (doc, totalPages) {
+        for (let i = totalPages; i >= 1; i--) {
+          doc.setPage(i)
+          header(doc)
+          footer(doc, i, totalPages)
+          doc.page++
+        }
+      }
+      function header (doc) {
+        doc.setFontSize(24)
+        doc.text('Shopping List', x, y)
+      }
+      function footer (doc, pageNumber, totalPages) {
+        let str = 'Page ' + pageNumber + ' of ' + totalPages
+        doc.setFontSize(10)
+        doc.text(str, margins.left, doc.internal.pageSize.height - 20)
+      }
     }
   }
 }
 </script>
-
 <style>
 ul {
   list-style: none;

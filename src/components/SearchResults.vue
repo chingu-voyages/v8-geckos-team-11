@@ -33,6 +33,13 @@
 <!-- ----------------- Recipe Cards ----------------- -->
     <v-layout v-if="renderedComponent">
       <v-flex md8 offset-md2>
+        <v-alert
+          :value="alert"
+          type="error"
+          outline
+        >
+        No results found!. Try using another filter
+        </v-alert>
         <v-layout justify-center row wrap>
           <v-flex v-for="(item, i) in updateList" :key="i" xl4 lg6>
             <v-card
@@ -80,7 +87,7 @@
             </v-card>
           </v-flex>
         </v-layout>
-      </v-flex>
+        </v-flex>
     </v-layout>
 <!-- ----------------- Pagination ----------------- -->
     <v-layout align-end justify-center class="mt-3" v-if="renderedComponent">
@@ -135,6 +142,15 @@ export default {
   watch: {
     tagged () {
       this.page = 1
+      if (this.tagged.length !== 0) {
+        if (this.updateList.length !== 0) {
+          this.alert = false
+        } else {
+          this.alert = true
+        }
+      } else {
+        this.alert = false
+      }
     },
     '$vuetify.breakpoint.mdAndUp' () {
       this.drawer = false
@@ -178,6 +194,7 @@ export default {
   data () {
     return {
       page: 1,
+      alert: false,
       numItemPerPage: 10,
       filterOptions: [
         { tag: 'Balanced' },
