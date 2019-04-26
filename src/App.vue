@@ -2,7 +2,7 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <v-toolbar-side-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-toolbar-side-icon>
+        <v-toolbar-side-icon class="hidden-md-and-up" @click="$refs.drawer.drawer = !$refs.drawer.drawer"></v-toolbar-side-icon>
         <span @click="reloadPage" class="logo">In The PAN</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -18,7 +18,7 @@
     <v-content>
       <SearchBar/>
 <!-- Search Results -->
-      <SearchResults :drawer="this.drawer"/>
+      <SearchResults ref="drawer"/>
     </v-content>
     <v-dialog
       v-model="openFaqDialog"
@@ -72,11 +72,6 @@ export default {
       openFaqDialog: false,
       drawer: false,
       faq: faq
-    }
-  },
-  watch: {
-    '$vuetify.breakpoint.mdAndUp' () {
-      this.drawer = false
     }
   },
   methods: {

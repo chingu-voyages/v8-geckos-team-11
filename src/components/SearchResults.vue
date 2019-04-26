@@ -133,6 +133,9 @@ export default {
   watch: {
     tagged () {
       this.page = 1
+    },
+    '$vuetify.breakpoint.mdAndUp' () {
+      this.drawer = false
     }
   },
   computed: {
@@ -170,9 +173,6 @@ export default {
       return this.$store.getters.getRecipes != null
     }
   },
-  props: {
-    drawer: Boolean
-  },
   data () {
     return {
       page: 1,
@@ -188,7 +188,8 @@ export default {
       tagged: [],
       dialogTitle: '',
       dialogMsg: '',
-      dialog: false
+      dialog: false,
+      drawer: false
     }
   },
   methods: {
