@@ -1,5 +1,5 @@
 <template>
-  <v-container grid-list-lg v-if="renderedComponent">
+  <v-container grid-list-lg>
     <!-- ----------------- Navigation Drawer ----------------- -->
     <v-navigation-drawer app v-model="drawer" disable-resize-watcher>
       <v-layout column class="pt-4 pl-3">
@@ -7,18 +7,20 @@
           <v-list-tile>
             <ShoppingList/>
           </v-list-tile>
-          <v-subheader>Diet Filters:</v-subheader>
-          <v-list-tile v-for="item in filterOptions" :key="item.id">
-            <v-list-tile-action>
-                <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
-                </v-checkbox>
-            </v-list-tile-action>
-          </v-list-tile>
+          <div v-if="renderedComponent">
+            <v-subheader>Diet Filters:</v-subheader>
+            <v-list-tile v-for="item in filterOptions" :key="item.id">
+              <v-list-tile-action>
+                  <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
+                  </v-checkbox>
+              </v-list-tile-action>
+            </v-list-tile>
+          </div>
         </v-list>
       </v-layout>
     </v-navigation-drawer>
 <!-- ----------------- FilterBox Options ----------------- -->
-    <v-layout>
+    <v-layout v-if="renderedComponent">
       <v-flex md3 xl2 class="hidden-sm-and-down">
         <v-card id="filterBoxOptions">
           <v-card-title primary class="title">Diet Filters: </v-card-title>
@@ -79,11 +81,11 @@
             </v-card>
           </v-flex>
         </v-layout>
-      </v-flex>
+        </v-flex>
     </v-layout>
 <!-- ----------------- Pagination ----------------- -->
-    <v-layout align-end justify-center class="mt-3">
-      <v-pagination
+    <v-layout align-end justify-center class="mt-3" v-if="renderedComponent">
+      <v-pagination id="pagination3d"
       v-if="updateList.length !== 0"
        v-model="page"
        :length="maxPaginationVisible"
@@ -131,6 +133,23 @@ export default {
     NutritionFacts,
     ShoppingList
   },
+  watch: {
+    tagged () {
+      this.page = 1
+      if (this.tagged.length !== 0) {
+        if (this.updateList.length !== 0) {
+          this.alert = false
+        } else {
+          this.alert = true
+        }
+      } else {
+        this.alert = false
+      }
+    },
+    '$vuetify.breakpoint.mdAndUp' () {
+      this.drawer = false
+    }
+  },
   computed: {
     recipeList () {
       return this.$store.getters.getRecipes
@@ -166,13 +185,11 @@ export default {
       return this.$store.getters.getRecipes != null
     }
   },
-  props: {
-    drawer: Boolean
-  },
   data () {
     return {
       page: 1,
-      numItemPerPage: 5, // 10 is default
+      alert: false,
+      numItemPerPage: 10,
       filterOptions: [
         { tag: 'Balanced' },
         { tag: 'High-Protein' },
@@ -180,20 +197,12 @@ export default {
         { tag: 'Low-Fat' },
         { tag: 'Low-Carb' },
         { tag: 'Low-Sodium' }
-        // { tag: 'vegan' },
-        // { tag: 'vegetarian' },
-        // { tag: 'dairy-free' },
-        // { tag: 'low-sugar' },
-        // { tag: 'low-fat-abs' },
-        // { tag: 'sugar-conscious' },
-        // { tag: 'fat free' },
-        // { tag: 'gluten free' },
-        // { tag: 'wheat free' }
       ],
       tagged: [],
       dialogTitle: '',
       dialogMsg: '',
-      dialog: false
+      dialog: false,
+      drawer: false
     }
   },
   methods: {
