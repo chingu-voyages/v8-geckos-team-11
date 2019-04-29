@@ -1,17 +1,6 @@
 <template>
   <v-container grid-list-lg v-if="renderedComponent">
-<!-- ----------------- FilterBox Options ----------------- -->
-    <v-card id="filterBoxOptions" class="hidden-sm-and-down">
-      <v-card-title primary class="title">Diet Filters: </v-card-title>
-        <v-divider></v-divider>
-        <v-layout column>
-            <v-flex v-for="item in filterOptions" :key="item.id">
-                <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
-                </v-checkbox>
-            </v-flex>
-        </v-layout>
-    </v-card>
-<!-- ----------------- Navigation Drawer ----------------- -->
+    <!-- ----------------- Navigation Drawer ----------------- -->
     <v-navigation-drawer app v-model="drawer" disable-resize-watcher>
       <v-layout column class="pt-4 pl-3">
         <v-list subheader>
@@ -28,15 +17,25 @@
         </v-list>
       </v-layout>
     </v-navigation-drawer>
-<!-- ----------------- Recipe Cards ----------------- -->
+<!-- ----------------- FilterBox Options ----------------- -->
     <v-layout>
-      <v-flex sm12 md6 lg8 offset-sm0 offset-md3 offset-lg2>
-        <v-layout :class="{ 'ml-2': $vuetify.breakpoint.lg }" justify-center row wrap fill-height>
-          <v-flex v-for="(item, i) in updateList" :key="i" xs10 sm6 md12 lg6 xl4>
+      <v-flex md3 xl2 class="hidden-sm-and-down">
+        <v-card id="filterBoxOptions">
+          <v-card-title primary class="title">Diet Filters: </v-card-title>
+            <v-divider></v-divider>
+            <v-flex class="filterCheckbox" v-for="item in filterOptions" :key="item.id">
+                <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
+                </v-checkbox>
+            </v-flex>
+        </v-card>
+      </v-flex>
+<!-- ----------------- Recipe Cards ----------------- -->
+      <v-flex sm12 md9 xl10>
+        <v-layout justify-center row wrap>
+          <v-flex v-for="(item, i) in updateList" :key="i" xs12 sm6 lg4 xl3>
             <v-card
               class="mx-1 recipeCard"
               min-width="280px"
-              max-width="374px"
               max-height="529px"
             >
               <v-img
@@ -267,9 +266,7 @@ export default {
 }
 
 #filterBoxOptions {
-  position: fixed;
-  top: 25.6%;
-  left: 2%;
+  position: sticky;
   z-index: 1;
   height: 365px;
   width: minmax(10%, 220px) ;
@@ -306,14 +303,14 @@ ul.v-pagination > li:first-child {
   max-width: max-content;
 }
 
+.filterCheckbox {
+  height: 40px;
+}
+
 .headline {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.layout.column > .flex {
-  max-height: 40px;
 }
 
 .v-card__text {
