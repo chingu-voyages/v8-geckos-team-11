@@ -298,6 +298,11 @@ ul.v-pagination > li > button.v-pagination__item {
   border-color: #FF9800;
 }
 
+ul.v-pagination > li > button.v-pagination__item--active {
+  z-index: 2;
+  transform: perspective(100px) rotateY(0deg) translateZ(20px) rotateZ(0deg);
+}
+
 ul.v-pagination > li {
   margin: 0;
   width: 25px;
@@ -305,6 +310,10 @@ ul.v-pagination > li {
 
 ul.v-pagination > li:first-child {
   margin-right: 25px;
+}
+
+ul.v-pagination > li:last-child {
+  margin-left: 10px;
 }
 
 .cardTitle {
