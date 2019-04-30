@@ -140,6 +140,9 @@ export default {
     ShoppingList
   },
   watch: {
+    recipeList () {
+      this.tagged = []
+    },
     tagged () {
       this.page = 1
       if (this.tagged.length !== 0) {

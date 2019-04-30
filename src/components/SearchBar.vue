@@ -7,14 +7,14 @@
             <v-text-field
               class='form__input'
               v-model.trim='$v.query.$model'
-              placeholder='start by typing in your favorite food item'
+              placeholder='Start by typing in your favorite food item'
               clearable
+              @focus="clearMsg()"
             ></v-text-field>
           </div>
-          <p v-if="submitStatus === 'ERROR'" class="ma-0">Please type in a food item</p>
-          <!-- <p v-if="submitStatus === 'OK'">Here are recipes result for food item</p> -->
-          <p v-if="submitStatus === 'PENDING'">Sending...</p>
-          <p v-if="submitStatus === 'NULL'">Sorry no recipe matching search, try again</p>
+          <p v-if="submitStatus === 'ERROR'" class="ma-0">{{statusMsg}}</p>
+          <p v-if="submitStatus === 'PENDING'">{{statusMsg}}</p>
+          <p v-if="submitStatus === 'NULL'">{{statusMsg}}</p>
         </v-flex>
         <v-btn
           type='submit'
@@ -28,12 +28,12 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators'
-
 export default {
   data () {
     return {
       query: '',
-      submitStatus: null
+      submitStatus: null,
+      statusMsg: ''
     }
   },
   validations: {
@@ -44,27 +44,37 @@ export default {
   computed: {
     recipeList () {
       return this.$store.getters.getRecipes
+    },
+    getApiError () {
+      return this.$store.getters.getError
     }
   },
   // need to set up a promise, to set recipeList to null
   methods: {
+    clearMsg () {
+      this.statusMsg = ''
+    },
     search () {
       this.$v.$touch()
       if (this.$v.$invalid) {
         this.submitStatus = 'ERROR'
+        this.statusMsg = 'Please type in a food item'
       } else {
-        this.$store.dispatch('callApi', this.query) // this will call the action to get data from api
-        /// Timer for following statements
         this.submitStatus = 'PENDING'
-        setTimeout(() => {
-          console.log(this.recipeList)
-          if (this.recipeList && this.recipeList.length !== 0) {
-            this.submitStatus = 'OK'
-          } else {
-            this.submitStatus = 'NULL'
-            this.$store.dispatch('clearResult')
-          }
-        }, 5000)
+        this.statusMsg = 'Sending....'
+        this.$store.dispatch('callApi', this.query) // this will call the action to get data from api
+          .then(response => {
+            if (this.recipeList && this.recipeList.length !== 0) {
+              this.submitStatus = 'OK'
+            } else {
+              this.submitStatus = 'NULL'
+              this.statusMsg = 'Sorry no recipe matching search, try again in a few seconds'
+              this.$store.dispatch('clearResult')
+            }
+          })
+          .catch(error => {
+            this.statusMsg = `Oops.. It seems that there is a problem. Please try again! - ${error}`
+          })
       }
     }
   }
