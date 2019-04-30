@@ -134,6 +134,9 @@ export default {
     ShoppingList
   },
   watch: {
+    recipeList () {
+      this.tagged = []
+    },
     tagged () {
       this.page = 1
       if (this.tagged.length !== 0) {
@@ -148,9 +151,6 @@ export default {
     },
     '$vuetify.breakpoint.mdAndUp' () {
       this.drawer = false
-    },
-    recipeList () {
-      this.tagged = []
     }
   },
   computed: {
