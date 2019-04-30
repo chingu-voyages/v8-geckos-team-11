@@ -9,6 +9,7 @@
               v-model.trim='$v.query.$model'
               placeholder='Start by typing in your favorite food item'
               clearable
+              color="#7A7F80"
             ></v-text-field>
           </div>
           <p v-if="submitStatus === 'ERROR'" class="ma-0">Please type in a food item</p>
@@ -19,7 +20,7 @@
         <v-btn
           type='submit'
           :disabled="submitStatus === 'PENDING'"
-          color="success"
+          color="#50C878"
         >Search</v-btn>
       </v-layout>
    </v-form>
@@ -71,8 +72,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .v-form {
   padding: 40px 20px;
 }
+
+
 </style>

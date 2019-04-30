@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
+      <v-toolbar-title class="headline text-uppercase" color="#EEDFDE">
         <v-toolbar-side-icon class="hidden-md-and-up" @click="$refs.drawer.drawer = !$refs.drawer.drawer"></v-toolbar-side-icon>
         <span @click="reloadPage" class="logo">In The PAN</span>
       </v-toolbar-title>
@@ -28,7 +28,7 @@
       scrollable
     >
      <v-card>
-       <v-toolbar card dark color="primary">
+       <v-toolbar card color="#EEDFDE">
           <v-btn icon dark @click="openFaqDialog = false">
             <v-icon>close</v-icon>
           </v-btn>

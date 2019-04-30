@@ -36,7 +36,7 @@
         <v-layout justify-center row wrap>
           <v-flex v-for="(item, i) in updateList" :key="i" xs12 sm6 lg4 xl3>
             <v-card
-              class="mx-1 recipeCard"
+              class="mx-1"
               min-width="280px"
               max-height="529px"
             >
@@ -49,7 +49,7 @@
               <v-card-title primary-title>
                 <div class="cardTitle">
                   <div class="headline">{{ item.recipe.label }}</div>
-                  <span class="grey--text">{{ item.recipe.source }}</span>
+                  <span class="emerald">{{ item.recipe.source }}</span>
                 </div>
               </v-card-title>
               <v-card-text>
@@ -58,12 +58,12 @@
                   <li><v-icon>timer</v-icon><span>{{ getTime(item.recipe.totalTime) }}</span></li>
                 </ul>
                 <ul>
-                  <li class="dietLabels" v-for="(diet) in item.recipe.dietLabels" :key="diet">{{ diet }}</li>
+                  <li class="dietLabels fountain-blue" v-for="(diet) in item.recipe.dietLabels" :key="diet">{{ diet }}</li>
                 </ul>
               </v-card-text>
               <v-card-actions>
                 <v-btn
-                  color="orange"
+                  class="emerald"
                   :href="item.recipe.url"
                   target="_blank"
                   flat
@@ -255,22 +255,15 @@ export default {
     extractId (uri) {
       return uri.substr(uri.indexOf('_') + 1, uri.length)
     }
-  },
-  mounted: function () {
-    this.$nextTick(function () {
-      let navPageArrows = [...document.getElementsByClassName('v-pagination__navigation')]
-
-      navPageArrows.forEach(arrow => {
-        arrow.style = 'transform: none;'
-      })
-    })
   }
 }
 </script>
 
 <style>
+
 .v-content {
-  background-image: url('../assets/In_The_Pan_Bg.png');
+  background-image: radial-gradient(circle, #EEDFDE, #6F5659);
+  /*background-image: url('../assets/In_The_Pan_Bg.png');*/
   background-attachment: fixed;
 }
 
@@ -355,6 +348,26 @@ li span {
 
 ul {
   padding: 0;
+}
+
+.soft-peach {
+  color: #EEDFDE;
+}
+
+.fountain-blue {
+  color: #65ADB2;
+}
+
+.emerald {
+  color: #50C878;
+}
+
+.falcon {
+  color: #6F5659;
+}
+
+.steel-gray {
+  color: #7A7F80;
 }
 
 </style>
