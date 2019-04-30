@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form @submit.prevent='findRecipes'>
+    <v-form @submit.prevent='search'>
       <v-layout justify-center row wrap>
         <v-flex xs12 sm6>
           <div class='form-group' :class="{ 'form-group--error': $v.query.$error }">
@@ -28,14 +28,12 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators'
-import _ from 'lodash'
 export default {
   data () {
     return {
       query: '',
       submitStatus: null,
-      statusMsg: '',
-      debounceAnswer: null
+      statusMsg: ''
     }
   },
   validations: {
@@ -51,17 +49,10 @@ export default {
       return this.$store.getters.getError
     }
   },
-  created () {
-    this.debounceAnswer = _.debounce(this.search, 8000, { trailing: true }) // delay Api call by 8 secs
-  },
   // need to set up a promise, to set recipeList to null
   methods: {
     clearMsg () {
       this.statusMsg = ''
-    },
-    findRecipes () {
-      this.submitStatus = 'PENDING'
-      this.debounceAnswer()
     },
     search () {
       this.$v.$touch()
@@ -69,19 +60,20 @@ export default {
         this.submitStatus = 'ERROR'
         this.statusMsg = 'Please type in a food item'
       } else {
+        this.submitStatus = 'PENDING'
+        this.statusMsg = 'Sending....'
         this.$store.dispatch('callApi', this.query) // this will call the action to get data from api
           .then(response => {
             if (this.recipeList && this.recipeList.length !== 0) {
               this.submitStatus = 'OK'
-              this.statusMsg = 'Here are recipes result for food item'
             } else {
               this.submitStatus = 'NULL'
-              this.statusMsg = 'Sorry no recipe matching search, try again'
+              this.statusMsg = 'Sorry no recipe matching search, try again in a few seconds'
               this.$store.dispatch('clearResult')
             }
           })
           .catch(error => {
-            this.statusMsg = `Ups.. It seems that there is a problem. Please try again! - ${error}`
+            this.statusMsg = `Oops.. It seems that there is a problem. Please try again! - ${error}`
           })
       }
     }
