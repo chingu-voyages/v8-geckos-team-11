@@ -1,7 +1,7 @@
 <template>
   <v-container grid-list-lg>
     <!-- ----------------- Navigation Drawer ----------------- -->
-    <v-navigation-drawer app v-model="drawer" disable-resize-watcher>
+    <v-navigation-drawer app v-model="drawer" width="250px" disable-resize-watcher>
       <v-layout column class="pt-4 pl-3">
         <v-list subheader>
           <v-list-tile>
@@ -150,7 +150,7 @@ export default {
       this.drawer = false
     },
     recipeList () {
-      this.tagged = [];
+      this.tagged = []
     }
   },
   computed: {

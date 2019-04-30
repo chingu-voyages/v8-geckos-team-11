@@ -28,7 +28,7 @@
       color="blue"
     >
      <v-card>
-       <v-toolbar card>
+       <v-toolbar dark color="primary" card>
           <v-btn icon dark @click="openFaqDialog = false">
             <v-icon>close</v-icon>
           </v-btn>
