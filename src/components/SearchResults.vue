@@ -85,7 +85,7 @@
     </v-layout>
 <!-- ----------------- Pagination ----------------- -->
     <v-layout align-end justify-center class="mt-3" v-if="renderedComponent">
-      <v-pagination id="pagination3d"
+      <v-pagination
       v-if="updateList.length !== 0"
        v-model="page"
        :length="maxPaginationVisible"
@@ -277,39 +277,6 @@ export default {
   width: minmax(10%, 220px) ;
   padding: 30px;
   top: 100px;
-}
-
-/* styling for arrows in pagination container
-  maybe we can separate the arrow icons some how?
-  need to figure it out... or just add them individually
-*/
-
-ul.v-pagination > li > button.v-pagination__item {
-  transform: perspective(75px) translateX(-5px) rotateY(-50deg) rotateZ(5deg);
-  margin: 0;
-  font-size: 2rem;
-  color: blue;
-  box-shadow: 0 -3px -1px;
-  border: 1px solid;
-  border-color: #FF9800;
-}
-
-ul.v-pagination > li > button.v-pagination__item--active {
-  z-index: 2;
-  transform: perspective(100px) rotateY(0deg) translateZ(20px) rotateZ(0deg);
-}
-
-ul.v-pagination > li {
-  margin: 0;
-  width: 25px;
-}
-
-ul.v-pagination > li:first-child {
-  margin-right: 25px;
-}
-
-ul.v-pagination > li:last-child {
-  margin-left: 10px;
 }
 
 .cardTitle {
