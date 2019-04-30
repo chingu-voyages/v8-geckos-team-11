@@ -273,7 +273,7 @@ export default {
   height: 365px;
   width: minmax(10%, 220px) ;
   padding: 30px;
-  transform: translateY(25%);
+  top: 100px;
 }
 
 /* styling for arrows in pagination container
