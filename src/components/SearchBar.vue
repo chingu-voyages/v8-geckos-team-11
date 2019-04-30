@@ -20,7 +20,7 @@
         <v-btn
           type='submit'
           :disabled="submitStatus === 'PENDING'"
-          color="#50C878"
+          color="blue"
         >Search</v-btn>
       </v-layout>
    </v-form>

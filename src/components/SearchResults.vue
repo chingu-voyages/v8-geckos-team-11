@@ -34,7 +34,7 @@
 <!-- ----------------- Recipe Cards ----------------- -->
       <v-flex sm12 md9 xl10>
         <v-layout justify-center row wrap>
-          <v-flex v-for="(item, i) in updateList" :key="i" xs12 sm6 lg4 xl3>
+          <v-flex v-for="(item, i) in updateList" :key="i" xs12 sm6 lg4>
             <v-card
               class="mx-1"
               min-width="280px"
@@ -148,6 +148,9 @@ export default {
     },
     '$vuetify.breakpoint.mdAndUp' () {
       this.drawer = false
+    },
+    recipeList () {
+      this.tagged = [];
     }
   },
   computed: {
@@ -262,7 +265,7 @@ export default {
 <style>
 
 .v-content {
-  background-image: radial-gradient(circle, #EEDFDE, #6F5659);
+  background-color: rgba(238, 223, 222, 0.65);
   /*background-image: url('../assets/In_The_Pan_Bg.png');*/
   background-attachment: fixed;
 }

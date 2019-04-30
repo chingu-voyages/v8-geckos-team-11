@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase" color="#EEDFDE">
+      <v-toolbar-title class="headline text-uppercase">
         <v-toolbar-side-icon class="hidden-md-and-up" @click="$refs.drawer.drawer = !$refs.drawer.drawer"></v-toolbar-side-icon>
         <span @click="reloadPage" class="logo">In The PAN</span>
       </v-toolbar-title>
@@ -23,12 +23,12 @@
     <v-dialog
       v-model="openFaqDialog"
       fullscreen
-      hide-overlay
       transition="dialog-bottom-transition"
       scrollable
+      color="blue"
     >
      <v-card>
-       <v-toolbar card color="#EEDFDE">
+       <v-toolbar card>
           <v-btn icon dark @click="openFaqDialog = false">
             <v-icon>close</v-icon>
           </v-btn>
@@ -88,5 +88,24 @@ export default {
 <style>
 .logo {
   cursor: pointer;
+}
+.soft-peach {
+  color: #EEDFDE;
+}
+
+.fountain-blue {
+  color: #65ADB2;
+}
+
+.emerald {
+  color: #50C878;
+}
+
+.falcon {
+  color: #6F5659;
+}
+
+.steel-gray {
+  color: #7A7F80;
 }
 </style>
