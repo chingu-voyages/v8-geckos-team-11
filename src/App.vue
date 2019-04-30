@@ -23,12 +23,12 @@
     <v-dialog
       v-model="openFaqDialog"
       fullscreen
-      hide-overlay
       transition="dialog-bottom-transition"
       scrollable
+      color="blue"
     >
      <v-card>
-       <v-toolbar card dark color="primary">
+       <v-toolbar dark color="primary" card>
           <v-btn icon dark @click="openFaqDialog = false">
             <v-icon>close</v-icon>
           </v-btn>
@@ -83,9 +83,29 @@ export default {
     }
   }
 }
+
 </script>
 <style>
 .logo {
   cursor: pointer;
+}
+.soft-peach {
+  color: #EEDFDE;
+}
+
+.fountain-blue {
+  color: #65ADB2;
+}
+
+.emerald {
+  color: #50C878;
+}
+
+.falcon {
+  color: #6F5659;
+}
+
+.steel-gray {
+  color: #7A7F80;
 }
 </style>

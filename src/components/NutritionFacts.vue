@@ -7,6 +7,7 @@
       <template v-slot:activator="{ on }">
         <v-btn
           flat
+          small
           color="orange"
           v-on="on"
         >
@@ -39,13 +40,6 @@
           >
             Close
           </v-btn>
-          <v-btn
-            color="primary"
-            flat
-            @click="download"
-          >
-            Export to PDF
-          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -64,18 +58,6 @@ export default {
 
   props: {
     facts: Object
-  },
-  methods: {
-    download () {
-      // eslint-disable-next-line
-      const doc = new jsPDF('p', 'pt', 'a4')
-      const contentHTML = this.$refs.content.innerHTML
-      doc.text('Nutrition Facts', 20, 50)
-      doc.fromHTML(contentHTML, 20, 70, {
-        width: 170
-      })
-      doc.save('Nutrition Facts.pdf')
-    }
   }
 }
 </script>

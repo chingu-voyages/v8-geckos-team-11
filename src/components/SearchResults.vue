@@ -1,19 +1,8 @@
 <template>
-  <v-container grid-list-md>
-<!-- ----------------- FilterBox Options ----------------- -->
-    <v-card id="filterBoxOptions" class="hidden-sm-and-down" v-if="renderedComponent">
-      <v-card-title primary class="title">Diet Filters: </v-card-title>
-        <v-divider></v-divider>
-        <v-layout column>
-            <v-flex v-for="item in filterOptions" :key="item.id">
-                <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
-                </v-checkbox>
-            </v-flex>
-        </v-layout>
-    </v-card>
-<!-- ----------------- Navigation Drawer ----------------- -->
-    <v-navigation-drawer app v-model="drawer" disable-resize-watcher>
-      <v-layout column>
+  <v-container grid-list-lg>
+    <!-- ----------------- Navigation Drawer ----------------- -->
+    <v-navigation-drawer app v-model="drawer" width="250px" disable-resize-watcher>
+      <v-layout column class="pt-4 pl-3">
         <v-list subheader>
           <v-list-tile>
             <ShoppingList/>
@@ -30,33 +19,37 @@
         </v-list>
       </v-layout>
     </v-navigation-drawer>
-<!-- ----------------- Recipe Cards ----------------- -->
+<!-- ----------------- FilterBox Options ----------------- -->
     <v-layout v-if="renderedComponent">
-      <v-flex md8 offset-md2>
-        <v-alert
-          :value="alert"
-          type="error"
-          outline
-        >
-        No results found!. Try using another filter
-        </v-alert>
+      <v-flex md3 xl2 class="hidden-sm-and-down">
+        <v-card id="filterBoxOptions">
+          <v-card-title primary class="title">Diet Filters: </v-card-title>
+            <v-divider></v-divider>
+            <v-flex class="filterCheckbox" v-for="item in filterOptions" :key="item.id">
+                <v-checkbox :id="item.id" v-model="tagged" :value="item.tag" :label="item.tag">
+                </v-checkbox>
+            </v-flex>
+        </v-card>
+      </v-flex>
+<!-- ----------------- Recipe Cards ----------------- -->
+      <v-flex sm12 md9 xl10>
         <v-layout justify-center row wrap>
-          <v-flex v-for="(item, i) in updateList" :key="i" xl4 lg6>
+          <v-flex v-for="(item, i) in updateList" :key="i" xs12 sm6 lg4>
             <v-card
-              class="mx-1 recipeCard"
-              min-width="316px"
-              max-width="374px"
+              class="mx-1"
+              min-width="280px"
               max-height="529px"
             >
               <v-img
                 aspect-ratio
-                height="300px"
+                max-height="300px"
+                min-height="200px"
                 :src="item.recipe.image"
               ></v-img>
               <v-card-title primary-title>
-                <div>
+                <div class="cardTitle">
                   <div class="headline">{{ item.recipe.label }}</div>
-                  <span class="grey--text">{{ item.recipe.source }}</span>
+                  <span class="emerald">{{ item.recipe.source }}</span>
                 </div>
               </v-card-title>
               <v-card-text>
@@ -65,15 +58,16 @@
                   <li><v-icon>timer</v-icon><span>{{ getTime(item.recipe.totalTime) }}</span></li>
                 </ul>
                 <ul>
-                  <li class="dietLabels" v-for="(diet) in item.recipe.dietLabels" :key="diet">{{ diet }}</li>
+                  <li class="dietLabels fountain-blue" v-for="(diet) in item.recipe.dietLabels" :key="diet">{{ diet }}</li>
                 </ul>
               </v-card-text>
               <v-card-actions>
                 <v-btn
-                  color="orange"
+                  class="emerald"
                   :href="item.recipe.url"
                   target="_blank"
                   flat
+                  small
                 >
                   Read More
                 </v-btn>
@@ -91,13 +85,13 @@
     </v-layout>
 <!-- ----------------- Pagination ----------------- -->
     <v-layout align-end justify-center class="mt-3" v-if="renderedComponent">
-      <v-pagination id="pagination3d"
+      <v-pagination
       v-if="updateList.length !== 0"
        v-model="page"
        :length="maxPaginationVisible"
        :total-visible="maxPaginationVisible"
-       prev-icon="chevron_left" prev-icon-id="prevIcon"
-       next-icon="chevron_right" next-icon-id="nextIcon"
+       prev-icon="chevron_left"
+       next-icon="chevron_right"
       >
       </v-pagination>
     </v-layout>
@@ -268,29 +262,36 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+
+.v-content {
+  background-color: rgba(238, 223, 222, 0.65);
+  /*background-image: url('../assets/In_The_Pan_Bg.png');*/
+  background-attachment: fixed;
+}
+
 #filterBoxOptions {
-  position: fixed;
-  top: 25.6%;
-  left: 3%;
+  position: sticky;
   z-index: 1;
   height: 365px;
-  width: 220px;
+  width: minmax(10%, 220px) ;
   padding: 30px;
-  transform: translateY(25%);
+  top: 100px;
 }
 
-/* styling for arrows in pagination container
-  maybe we can separate the arrow icons some how?
-  need to figure it out... or just add them individually
-
-#pagination3d {
-  transform: perspective(125px) rotateY(-60deg);
+.cardTitle {
+  width: 100%;
+  max-width: max-content;
 }
-*/
 
-.layout.column > .flex {
-  max-height: 40px;
+.filterCheckbox {
+  height: 40px;
+}
+
+.headline {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .v-card__text {
@@ -317,6 +318,26 @@ li span {
 
 ul {
   padding: 0;
+}
+
+.soft-peach {
+  color: #EEDFDE;
+}
+
+.fountain-blue {
+  color: #65ADB2;
+}
+
+.emerald {
+  color: #50C878;
+}
+
+.falcon {
+  color: #6F5659;
+}
+
+.steel-gray {
+  color: #7A7F80;
 }
 
 </style>

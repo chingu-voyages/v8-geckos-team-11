@@ -3,6 +3,7 @@
     <v-dialog
       v-model="dialog"
       width="600"
+      :fullscreen="$vuetify.breakpoint.smAndDown"
     >
       <template v-slot:activator="{ on }">
         <v-btn
