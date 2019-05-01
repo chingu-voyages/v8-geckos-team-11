@@ -28,12 +28,12 @@
                   <v-icon small class='no-print' id='hidediv'>delete</v-icon>
                 </v-btn>
               </v-flex>
-              <v-flex xs5>
+              <v-flex xs9>
                 <v-subheader class="ma-0 pa-0 blue--text">{{recipe.name}}</v-subheader>
                 <ul class="ma-0 pa-0" v-for="(ingredient) in recipe.ingredients" :key="ingredient">
                   <li>{{ingredient}}</li>
                 </ul>
-                <v-divider class="mb-3 mt-3 blue darken-4"></v-divider>
+                <v-divider v-if="shoppingListDivider(recipe)" class="recipeDivider mb-3 mt-3 blue darken-4"></v-divider>
               </v-flex>
             </v-layout>
           </template>
@@ -94,6 +94,9 @@ export default {
     },
     removeRecipe (recipe) {
       this.$store.dispatch('removeRecipe', recipe)
+    },
+    shoppingListDivider (recipe) {
+      return this.cartList.length > 1 && recipe !== (this.cartList[this.cartList.length - 1])
     },
     download () {
       let margins = {

@@ -53,11 +53,11 @@
                 </div>
               </v-card-title>
               <v-card-text>
-                <ul>
+                <ul class="cardList">
                   <li><v-icon>person</v-icon><span>{{ item.recipe.yield }}</span></li>
                   <li><v-icon>timer</v-icon><span>{{ getTime(item.recipe.totalTime) }}</span></li>
                 </ul>
-                <ul>
+                <ul class="cardList">
                   <li class="dietLabels fountain-blue" v-for="(diet) in item.recipe.dietLabels" :key="diet">{{ diet }}</li>
                 </ul>
               </v-card-text>
@@ -84,14 +84,11 @@
         </v-flex>
     </v-layout>
 <!-- ----------------- Pagination ----------------- -->
-    <v-layout align-end justify-center class="mt-3" v-if="renderedComponent">
+    <v-layout justify-center class="mt-3" v-if="renderedComponent">
       <v-pagination
       v-if="updateList.length !== 0"
-       v-model="page"
-       :length="maxPaginationVisible"
-       :total-visible="maxPaginationVisible"
-       prev-icon="chevron_left"
-       next-icon="chevron_right"
+      v-model="page"
+      :length="maxPaginationVisible"
       >
       </v-pagination>
     </v-layout>
@@ -302,13 +299,13 @@ export default {
   padding-bottom: 0;
 }
 
-li {
+.cardList li {
   display: inline-block;
   margin-left: 1em;
   line-height: 1em;
 }
 
-li:first-child {
+.cardList li:first-child {
   margin-left: 0;
 }
 
