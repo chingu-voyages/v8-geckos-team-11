@@ -33,6 +33,13 @@
       </v-flex>
 <!-- ----------------- Recipe Cards ----------------- -->
       <v-flex sm12 md9 xl10>
+        <v-alert
+          :value="alert"
+          type="error"
+          outline
+        >
+          No results found!. Try using another filter
+        </v-alert>
         <v-layout justify-center row wrap>
           <v-flex v-for="(item, i) in updateList" :key="i" xs12 sm6 lg4>
             <v-card
