@@ -11,6 +11,5 @@ Vue.use(Vuetify, {
     warning: '#ffeb3b',
     info: '#00bcd4',
     success: '#4caf50'
-  },
-  iconfont: 'md'
+  }
 })

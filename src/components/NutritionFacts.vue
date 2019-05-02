@@ -8,7 +8,6 @@
         <v-btn
           flat
           small
-          color="orange"
           v-on="on"
         >
           Nutrition Facts

@@ -58,7 +58,7 @@
                   <li><v-icon>timer</v-icon><span>{{ getTime(item.recipe.totalTime) }}</span></li>
                 </ul>
                 <ul class="cardList">
-                  <li class="dietLabels fountain-blue" v-for="(diet) in item.recipe.dietLabels" :key="diet">{{ diet }}</li>
+                  <li class="dietLabels" v-for="(diet) in item.recipe.dietLabels" :key="diet">{{ diet }}</li>
                 </ul>
               </v-card-text>
               <v-card-actions>
@@ -260,10 +260,10 @@ export default {
 
 <style>
 
-.v-content {
+/* .v-content {
   background-color: rgba(238, 223, 222, 0.65);
   background-attachment: fixed;
-}
+} */
 
 #filterBoxOptions {
   position: sticky;
