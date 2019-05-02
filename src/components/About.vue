@@ -81,10 +81,6 @@ export default {
 }
 </script>
 <style>
-.aboutDrawer {
-  padding-left: 10px;
-}
-
 .aboutHeadings > h3 {
   padding-top: 25px;
 }

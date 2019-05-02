@@ -7,6 +7,9 @@
           <v-list-tile>
             <About/>
           </v-list-tile>
+          <v-list-title>
+            <Faq/>
+          </v-list-title>
           <v-list-tile>
             <ShoppingList/>
           </v-list-tile>
@@ -36,6 +39,13 @@
       </v-flex>
 <!-- ----------------- Recipe Cards ----------------- -->
       <v-flex sm12 md9 xl10>
+        <v-alert
+          :value="alert"
+          type="error"
+          outline
+        >
+          No results found!. Try using another filter
+        </v-alert>
         <v-layout justify-center row wrap>
           <v-flex v-for="(item, i) in updateList" :key="i" xs12 sm6 lg4>
             <v-card
@@ -128,11 +138,13 @@
 <script>
 import NutritionFacts from './NutritionFacts'
 import ShoppingList from './ShoppingList'
+import Faq from './Faq'
 import About from './About'
 export default {
   components: {
     NutritionFacts,
     ShoppingList,
+    Faq,
     About
   },
   watch: {
@@ -194,7 +206,7 @@ export default {
     return {
       page: 1,
       alert: false,
-      numItemPerPage: 10,
+      numItemPerPage: 9,
       filterOptions: [
         { tag: 'Balanced' },
         { tag: 'High-Protein' },
