@@ -5,6 +5,9 @@
       <v-layout column class="pt-4 pl-3">
         <v-list subheader>
           <v-list-tile>
+            <Faq/>
+          </v-list-tile>
+          <v-list-tile>
             <ShoppingList/>
           </v-list-tile>
           <div v-if="renderedComponent">
@@ -132,10 +135,12 @@
 <script>
 import NutritionFacts from './NutritionFacts'
 import ShoppingList from './ShoppingList'
+import Faq from './Faq'
 export default {
   components: {
     NutritionFacts,
-    ShoppingList
+    ShoppingList,
+    Faq
   },
   watch: {
     recipeList () {
@@ -196,7 +201,7 @@ export default {
     return {
       page: 1,
       alert: false,
-      numItemPerPage: 10,
+      numItemPerPage: 9,
       filterOptions: [
         { tag: 'Balanced' },
         { tag: 'High-Protein' },
