@@ -49,7 +49,7 @@
               <v-card-title primary-title>
                 <div class="cardTitle">
                   <div class="headline">{{ item.recipe.label }}</div>
-                  <span class="emerald">{{ item.recipe.source }}</span>
+                  <span>{{ item.recipe.source }}</span>
                 </div>
               </v-card-title>
               <v-card-text>
@@ -63,7 +63,6 @@
               </v-card-text>
               <v-card-actions>
                 <v-btn
-                  class="emerald"
                   :href="item.recipe.url"
                   target="_blank"
                   flat
@@ -263,7 +262,6 @@ export default {
 
 .v-content {
   background-color: rgba(238, 223, 222, 0.65);
-  /*background-image: url('../assets/In_The_Pan_Bg.png');*/
   background-attachment: fixed;
 }
 
@@ -271,7 +269,6 @@ export default {
   position: sticky;
   z-index: 1;
   height: 365px;
-  width: minmax(10%, 220px) ;
   padding: 30px;
   top: 100px;
 }
@@ -316,25 +313,4 @@ li span {
 ul {
   padding: 0;
 }
-
-.soft-peach {
-  color: #EEDFDE;
-}
-
-.fountain-blue {
-  color: #65ADB2;
-}
-
-.emerald {
-  color: #50C878;
-}
-
-.falcon {
-  color: #6F5659;
-}
-
-.steel-gray {
-  color: #7A7F80;
-}
-
 </style>

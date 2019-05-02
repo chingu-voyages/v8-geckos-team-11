@@ -9,7 +9,6 @@
               v-model.trim='$v.query.$model'
               placeholder='Start by typing in your favorite food item'
               clearable
-              color="#7A7F80"
               @focus="clearMsg()"
             ></v-text-field>
           </div>
@@ -20,7 +19,6 @@
         <v-btn
           type='submit'
           :disabled="submitStatus === 'PENDING'"
-          color="blue"
         >Search</v-btn>
       </v-layout>
    </v-form>

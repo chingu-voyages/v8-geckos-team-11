@@ -89,23 +89,4 @@ export default {
 .logo {
   cursor: pointer;
 }
-.soft-peach {
-  color: #EEDFDE;
-}
-
-.fountain-blue {
-  color: #65ADB2;
-}
-
-.emerald {
-  color: #50C878;
-}
-
-.falcon {
-  color: #6F5659;
-}
-
-.steel-gray {
-  color: #7A7F80;
-}
 </style>
