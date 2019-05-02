@@ -5,6 +5,9 @@
       <v-layout column class="pt-4 pl-3">
         <v-list subheader>
           <v-list-tile>
+            <About/>
+          </v-list-tile>
+          <v-list-tile>
             <ShoppingList/>
           </v-list-tile>
           <div v-if="renderedComponent">
@@ -125,10 +128,12 @@
 <script>
 import NutritionFacts from './NutritionFacts'
 import ShoppingList from './ShoppingList'
+import About from './About'
 export default {
   components: {
     NutritionFacts,
-    ShoppingList
+    ShoppingList,
+    About
   },
   watch: {
     recipeList () {

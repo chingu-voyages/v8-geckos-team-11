@@ -9,9 +9,12 @@
       <div class="hidden-sm-and-down">
         <ShoppingList/>
       </div>
-      <v-btn flat @click.stop="openAbout">
+      <div class="hidden-sm-and-down">
+        <About/>
+      </div>
+      <!-- <v-btn flat @click.stop="openAbout">
         <span class="mr-2" >About</span>
-      </v-btn>
+      </v-btn> -->
       <v-btn flat @click.stop="openFaq">
         <span class="mr-2" >FAQ</span>
       </v-btn>
@@ -23,7 +26,7 @@
 <!-- Search Results -->
       <SearchResults ref="drawer"/>
     </v-content>
-     <v-dialog
+     <!-- <v-dialog
       v-model="openAboutDialog"
       fullscreen
       transition="dialog-bottom-transition"
@@ -67,16 +70,16 @@
                 <v-divider></v-divider>
                <div class='teamMembers'>
                  <h3>The Contributors</h3>
-                 <p><i>In the Pan</i> was made with 
-                  <i class="fas fa-heart"></i> and 
+                 <p><i>In the Pan</i> was made with
+                  <i class="fas fa-heart"></i> and
                   <i class="fas fa-coffee"></i> by
                   <a href='https://github.com/chingu-voyages/v8-geckos-team-11'>Geckos-Team-11</a>
                   <br>
-                  Contributing members are 
+                  Contributing members are
                   <a href='https://github.com/syaora/' target='_blank'>Elizabeth</a>
                   <a href='https://github.com/gnich12/' target='_blank'>Alvarado</a>
-                  <a href='https://github.com/louischrisorona/' target='_blank'>Chris</a> 
-                  <a href='https://github.com/simonxcode/' target='_blank'>Simon</a> 
+                  <a href='https://github.com/louischrisorona/' target='_blank'>Chris</a>
+                  <a href='https://github.com/simonxcode/' target='_blank'>Simon</a>
                  </p>
                </div>
              </v-flex>
@@ -84,7 +87,7 @@
          </v-container>
        </v-card-text>
      </v-card>
-    </v-dialog>
+    </v-dialog> -->
     <v-dialog
       v-model="openFaqDialog"
       fullscreen
@@ -126,16 +129,18 @@ import SearchResults from './components/SearchResults'
 import SearchBar from './components/SearchBar'
 import ShoppingList from './components/ShoppingList'
 import faq from './faq/questions'
+import About from './components/About'
 export default {
   components: {
     SearchBar,
     SearchResults,
-    ShoppingList
+    ShoppingList,
+    About
   },
   data () {
     return {
       openFaqDialog: false,
-      openAboutDialog: false,
+      // openAboutDialog: false,
       drawer: false,
       faq: faq
     }
@@ -185,7 +190,7 @@ export default {
 .aboutLink h3 {
   padding-top: 25px;
 }
-  
+
 .aboutLink a {
   text-decoration: none
 }
