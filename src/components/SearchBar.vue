@@ -48,7 +48,6 @@ export default {
       return this.$store.getters.getError
     }
   },
-  // need to set up a promise, to set recipeList to null
   methods: {
     clearMsg () {
       this.statusMsg = ''
@@ -84,5 +83,4 @@ export default {
 .v-form {
   padding: 40px 20px;
 }
-
 </style>

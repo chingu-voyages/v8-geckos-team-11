@@ -46,8 +46,6 @@
 </template>
 
 <script>
-import jsPDF from 'jspdf'
-
 export default {
   data () {
     return {
