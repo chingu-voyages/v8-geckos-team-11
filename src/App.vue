@@ -7,16 +7,17 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <div class="hidden-sm-and-down">
-        <ShoppingList/>
+        <About/>
       </div>
-      <div class="hidden-sm-and-down">
+       <div class="hidden-sm-and-down">
         <Faq/>
       </div>
+      <div class="hidden-sm-and-down">
+        <ShoppingList/>
+      </div>
     </v-toolbar>
-<!-- Searchbar -->
     <v-content>
       <SearchBar/>
-<!-- Search Results -->
       <SearchResults ref="drawer"/>
     </v-content>
   </v-app>
@@ -25,13 +26,15 @@
 import SearchResults from './components/SearchResults'
 import SearchBar from './components/SearchBar'
 import ShoppingList from './components/ShoppingList'
+import About from './components/About'
 import Faq from './components/Faq'
 export default {
   components: {
     SearchBar,
     SearchResults,
     ShoppingList,
-    Faq
+    Faq,
+    About
   },
   data () {
     return {

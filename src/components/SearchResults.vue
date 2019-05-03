@@ -5,6 +5,9 @@
       <v-layout column class="pt-4 pl-3">
         <v-list subheader>
           <v-list-tile>
+            <About/>
+          </v-list-tile>
+          <v-list-tile>
             <Faq/>
           </v-list-tile>
           <v-list-tile>
@@ -136,11 +139,13 @@
 import NutritionFacts from './NutritionFacts'
 import ShoppingList from './ShoppingList'
 import Faq from './Faq'
+import About from './About'
 export default {
   components: {
     NutritionFacts,
     ShoppingList,
-    Faq
+    Faq,
+    About
   },
   watch: {
     recipeList () {
