@@ -5,7 +5,7 @@ import 'vuetify/src/stylus/app.styl'
 Vue.use(Vuetify, {
   theme: {
     primary: '#607d8b',
-    secondary: '#673ab7',
+    secondary: '#EFEFEF',
     accent: '#ff9800',
     error: '#f44336',
     warning: '#ffeb3b',

@@ -61,7 +61,7 @@
               ></v-img>
               <v-card-title primary-title>
                 <div class="cardTitle">
-                  <div class="headline">{{ item.recipe.label }}</div>
+                  <div class="headline accent--text">{{ item.recipe.label }}</div>
                   <span>{{ item.recipe.source }}</span>
                 </div>
               </v-card-title>
@@ -111,7 +111,7 @@
 <!-- ----------------- Added to List Dialog ----------------- -->
       <v-card>
         <v-card-title
-          class="headline grey lighten-2"
+          class="headline primary"
           primary-title
         >
           {{dialogTitle}}
@@ -122,7 +122,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="primary"
+            color="white"
             flat
             @click="dialog = false"
           >
