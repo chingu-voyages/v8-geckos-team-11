@@ -1,10 +1,6 @@
 import axios from 'axios'
-// const APIKEY = '3aad3324797263bbfd0e31db394a2281'
-// const APIID = '44f1859e'
-
-// Simon's credentials
-const APIID = '1d66f90e'
-const APIKEY = ' 040f46bbb7b4a11344f24e70a04d96ea'
+const APIKEY = '3aad3324797263bbfd0e31db394a2281'
+const APIID = '44f1859e'
 
 const state = {
   recipe: null
