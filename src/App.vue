@@ -1,38 +1,56 @@
 <template>
-  <v-app>
+  <v-app dark>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
+        <v-toolbar-side-icon class="hidden-md-and-up" @click="$refs.drawer.drawer = !$refs.drawer.drawer"></v-toolbar-side-icon>
+        <span @click="reloadPage" class="logo">In The PAN</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
+      <div class="hidden-sm-and-down">
+        <About/>
+      </div>
+       <div class="hidden-sm-and-down">
+        <Faq/>
+      </div>
+      <div class="hidden-sm-and-down">
+        <ShoppingList/>
+      </div>
     </v-toolbar>
-
     <v-content>
-      <HelloWorld/>
+      <SearchBar/>
+      <SearchResults ref="drawer"/>
     </v-content>
   </v-app>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld'
-
+import SearchResults from './components/SearchResults'
+import SearchBar from './components/SearchBar'
+import ShoppingList from './components/ShoppingList'
+import About from './components/About'
+import Faq from './components/Faq'
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    SearchBar,
+    SearchResults,
+    ShoppingList,
+    Faq,
+    About
   },
   data () {
     return {
-      //
+      drawer: false
+    }
+  },
+  methods: {
+    reloadPage () {
+      location.reload()
     }
   }
 }
+
 </script>
+<style>
+.logo {
+  cursor: pointer;
+}
+</style>
