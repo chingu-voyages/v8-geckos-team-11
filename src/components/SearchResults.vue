@@ -7,9 +7,9 @@
           <v-list-tile>
             <About/>
           </v-list-tile>
-          <v-list-title>
+          <v-list-tile>
             <Faq/>
-          </v-list-title>
+          </v-list-tile>
           <v-list-tile>
             <ShoppingList/>
           </v-list-tile>
