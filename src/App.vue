@@ -50,9 +50,6 @@ export default {
 
 </script>
 <style>
-.hidden-sm-and-down {
-  padding: 10px;
-}
 .logo {
   cursor: pointer;
 }
