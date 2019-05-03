@@ -9,7 +9,7 @@
               v-model.trim='$v.query.$model'
               placeholder='Start by typing in your favorite food item'
               clearable
-              color="#7A7F80"
+              solo
               @focus="clearMsg()"
             ></v-text-field>
           </div>
@@ -18,10 +18,10 @@
           <p v-if="submitStatus === 'NULL'">{{statusMsg}}</p>
         </v-flex>
         <v-btn
+          color="orange darken-2"
           type='submit'
           :disabled="submitStatus === 'PENDING'"
-          color="blue"
-        >Search</v-btn>
+        >Fire It Up</v-btn>
       </v-layout>
    </v-form>
   </v-container>

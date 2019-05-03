@@ -61,8 +61,8 @@
               ></v-img>
               <v-card-title primary-title>
                 <div class="cardTitle">
-                  <div class="headline">{{ item.recipe.label }}</div>
-                  <span class="emerald">{{ item.recipe.source }}</span>
+                  <div class="headline accent--text">{{ item.recipe.label }}</div>
+                  <span>{{ item.recipe.source }}</span>
                 </div>
               </v-card-title>
               <v-card-text>
@@ -71,12 +71,11 @@
                   <li><v-icon>timer</v-icon><span>{{ getTime(item.recipe.totalTime) }}</span></li>
                 </ul>
                 <ul class="cardList">
-                  <li class="dietLabels fountain-blue" v-for="(diet) in item.recipe.dietLabels" :key="diet">{{ diet }}</li>
+                  <li class="dietLabels" v-for="(diet) in item.recipe.dietLabels" :key="diet">{{ diet }}</li>
                 </ul>
               </v-card-text>
               <v-card-actions>
                 <v-btn
-                  class="emerald"
                   :href="item.recipe.url"
                   target="_blank"
                   flat
@@ -112,7 +111,7 @@
 <!-- ----------------- Added to List Dialog ----------------- -->
       <v-card>
         <v-card-title
-          class="headline grey lighten-2"
+          class="headline primary"
           primary-title
         >
           {{dialogTitle}}
@@ -123,7 +122,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="primary"
+            color="white"
             flat
             @click="dialog = false"
           >
@@ -278,17 +277,15 @@ export default {
 
 <style>
 
-.v-content {
+/* .v-content {
   background-color: rgba(238, 223, 222, 0.65);
-  /*background-image: url('../assets/In_The_Pan_Bg.png');*/
   background-attachment: fixed;
-}
+} */
 
 #filterBoxOptions {
   position: sticky;
   z-index: 1;
   height: 365px;
-  width: minmax(10%, 220px) ;
   padding: 30px;
   top: 100px;
 }
@@ -333,25 +330,4 @@ li span {
 ul {
   padding: 0;
 }
-
-.soft-peach {
-  color: #EEDFDE;
-}
-
-.fountain-blue {
-  color: #65ADB2;
-}
-
-.emerald {
-  color: #50C878;
-}
-
-.falcon {
-  color: #6F5659;
-}
-
-.steel-gray {
-  color: #7A7F80;
-}
-
 </style>

@@ -15,7 +15,7 @@
       </template>
       <v-card>
         <v-card-title
-          class="headline grey lighten-2"
+          class="headline primary"
           primary-title
         >
           Shopping List
@@ -45,21 +45,21 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="primary"
+            color="accent"
             flat
             @click="clearCart"
           >
             Clear
           </v-btn>
           <v-btn
-            color="primary"
+            color="info"
             flat
             @click="download"
           >
             Export to PDF
           </v-btn>
           <v-btn
-            color="primary"
+            color="success"
             flat
             @click="dialog = false"
           >

@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app dark>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <v-toolbar-side-icon class="hidden-md-and-up" @click="$refs.drawer.drawer = !$refs.drawer.drawer"></v-toolbar-side-icon>
@@ -52,24 +52,5 @@ export default {
 <style>
 .logo {
   cursor: pointer;
-}
-.soft-peach {
-  color: #EEDFDE;
-}
-
-.fountain-blue {
-  color: #65ADB2;
-}
-
-.emerald {
-  color: #50C878;
-}
-
-.falcon {
-  color: #6F5659;
-}
-
-.steel-gray {
-  color: #7A7F80;
 }
 </style>
