@@ -21,7 +21,7 @@
           color="orange darken-2"
           type='submit'
           :disabled="submitStatus === 'PENDING'"
-        >Search</v-btn>
+        >Fire It Up</v-btn>
       </v-layout>
    </v-form>
   </v-container>

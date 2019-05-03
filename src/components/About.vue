@@ -80,7 +80,11 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
+a {
+  color: aqua !important;
+}
+
 .aboutHeadings > h3 {
   padding-top: 25px;
 }
