@@ -27,7 +27,7 @@
              <v-flex xs12>
                <h2 class="display-2">In the Pan FAQ</h2>
                <div>
-                 <p>Here you will find the common answers to top frequently questions</p>
+                 <p>Here are the answers to Frequently Asked Questions</p>
                </div>
              </v-flex>
              <v-flex xs12 v-for="(q, index) in faq.faq" :key="index">
