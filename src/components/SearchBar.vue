@@ -85,4 +85,10 @@ export default {
 .v-form {
   padding: 40px 20px;
 }
+.container > .v-form {
+    background-image: url(https://images.unsplash.com/photo-1466637574441-749b8f19452f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80);
+    background-size: cover;
+    background-position-y: center;
+    background-position-x: center;
+}
 </style>
